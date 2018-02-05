@@ -1,0 +1,33 @@
+html {
+  font-size: 62.5%;
+}
+body {
+  background-color: #eee;
+}
+.h4-title {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 56px;
+  line-height: 56px;
+  font-size: 20px;
+  background: #343a40;
+  color: #fff;
+  text-align: center;
+  z-index: 999;
+}
+.dashboard-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+.clearfix {
+  display: table;
+  content: '';
+  width: 0;
+  height: 0;
+  visibility: hidden;
+  overflow: hidden;
+  clear: both;
+}
