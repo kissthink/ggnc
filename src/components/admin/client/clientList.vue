@@ -13,11 +13,11 @@
       <tbody>
         <tr v-for="user of userList" :key="user.id">
           <td>{{user.id}}</td>
-          <td><a href="javascript:void(0);" @click="selectClient(user.id)">{{user.nickName}}</a></td>
+          <td><a href="javascript:void(0);" @click="selectClient(user)">{{user.nickName}}</a></td>
           <td>{{user.mobile}}</td>
-          <td>是</td>
+          <td>{{isRealName(user)}}</td>
           <td>
-            <button class="btn btn-info btn-sm" @click="toggerEnable(user.id)">禁用</button>
+            <button class="btn btn-info btn-sm" @click="switchEnable(user)">{{isEnable(user)}}</button>
             <button class="btn btn-danger btn-sm">删除</button>
           </td>
         </tr>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import * as axiosService from '@/assets/js/axiosService.js'
+import adminService from '@/assets/js/adminService'
 export default {
   name: 'UserList',
   data () {
@@ -36,18 +36,35 @@ export default {
     }
   },
   methods: {
-    selectClient (userId) {
-      this.$router.push(`/dashboard/client-detail/${userId}`)
+    selectClient (user) {
+      this.$router.push(`/dashboard/client-detail/${user.id}`)
     },
-    toggerEnable (userId) {
-      axiosService.patch(axiosService.USER_SWITCH, userId).then(res => {
-        console.log(res)
+    isRealName (user) {
+      return user.userInfo ? '是' : '否'
+    },
+    isEnable (user) {
+      return user.enable ? '禁用' : '启用'
+    },
+    switchEnable (user) {
+      user.enable = !user.enable
+      adminService.switchUserEnable(user).then(res => {
+        if (!res) {
+          this.$message({
+            message: `成功禁用用户“${user.nickName}”`,
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            message: `成功启用用户“${user.nickName}”`,
+            type: 'success'
+          })
+        }
       })
     }
   },
   beforeCreate () {
-    axiosService.getAll(axiosService.USER_LIST).then(res => {
-      this.userList = res.data.userList
+    adminService.getUserList().then(res => {
+      this.userList = res
     })
   }
 }

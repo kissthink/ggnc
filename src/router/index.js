@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 // components
 import Login from '@/components/Login'
+import Dashboard from '@/components/Dashboard'
 import PageNotFound from '@/components/PageNotFound'
 
 // client
@@ -22,7 +23,7 @@ import ChickenDetail from '@/components/client/personal-center/ChickenDetail'
 import Notice from '@/components/client/personal-center/Notice'
 
 // admin
-import Dashboard from '@/components/admin/Dashboard'
+import Admin from '@/components/admin/Admin'
 import ClientList from '@/components/admin/client/ClientList'
 import ClientDetail from '@/components/admin/client/ClientDetail'
 import GoodsList from '@/components/admin/GoodsList'
@@ -37,6 +38,7 @@ let router = new Router({
   mode: 'history',
   routes: [
     { path: '/', redirect: '/dashboard' },
+    { path: '/dashboard', name: 'Dashboard', component: Dashboard },
     { path: '/login', name: 'Login', component: Login },
     // client
     { path: '/home', name: 'Home', component: Home },
@@ -58,8 +60,8 @@ let router = new Router({
     { path: '/notice', name: 'Notice', component: Notice }, // 公告
     { path: '/edit-password', name: 'EditPassword', component: EditPassword }, // 修改密码
     // admin
-    { path: '/dashboard',
-      component: Dashboard,
+    { path: '/admin',
+      component: Admin,
       children: [
         { path: '', redirect: 'client-list' },
         { path: 'client-list', name: 'ClientList', component: ClientList },

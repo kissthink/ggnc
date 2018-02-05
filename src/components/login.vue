@@ -21,13 +21,15 @@
           <b-form-input id="password" :state="state" type="password"  v-model="password"></b-form-input>
         </b-form-group>
 
-        <button class="btn btn-success btn-block mt-4" @click.stop="login()">登录</button>
+        <button class="btn btn-success btn-block mt-4" @click.prevent="login()">登录</button>
       </b-form>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import url from '../assets/js/apiUrl.js'
 export default {
   name: 'Login',
   data () {
@@ -40,20 +42,17 @@ export default {
   },
   methods: {
     login () {
-      if (this.username === '' && this.password === '') {
+      if (this.username === '' || this.password === '') {
         this.errorMessage = '账号密码不能为空'
         this.state = false
         return
       }
-      if (this.username === 'admin' && this.password === 'admin') {
-        this.errorMessage = ''
-        this.state = true
-        this.$router.push('/dashboard')
-        window.localStorage.setItem('LOGIN_USER', this.username + ',' + this.password)
-      } else {
-        this.errorMessage = '账号或密码错误'
-        this.state = false
-      }
+      axios.post(url.userLogin, {
+        mobile: this.username,
+        password: this.password
+      }).then(res => {
+        console.log(res)
+      })
     }
   }
 }

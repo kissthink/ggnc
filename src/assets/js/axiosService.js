@@ -1,50 +1,45 @@
 import axios from 'axios'
 
-// api
-export const USER_DETAIL = 'api/user/detail'
-export const USER_LIST = 'api/user/list'
-export const USER_SWITCH = 'api/user/switch'
-
 // axios defaults config
 axios.defaults.baseURL = 'http://172.168.1.2/'
+axios.defaults.headers.common['Authorization'] = ''
 
 // methods
-function getAll (api) {
-  let URL = `${api}`
+function getAll (url) {
+  return axios.get(url)
+    .then(response => response.data)
+    .catch(error => error.message)
+}
+
+function get (url, id) {
+  let URL = `${url}/${id}`
   return axios.get(URL)
     .then(response => response.data)
     .catch(error => error.message)
 }
 
-function get (api, id) {
-  let URL = `${api}/${id}`
-  return axios.get(URL)
+function post (url, data) {
+  return axios.post(url, JSON.stringify(data))
     .then(response => response.data)
     .catch(error => error.message)
 }
 
-function post (api, data) {
-  return axios.post(api, JSON.stringify(data))
-    .then(response => response.data)
-    .catch(error => error.message)
-}
-
-function update (api, id, data) {
-  let URL = `${api}/${id}`
+function update (url, data) {
+  let URL = `${url}/${data.id}`
   return axios.put(URL, JSON.stringify(data))
     .then(response => response.data)
     .catch(error => error.message)
 }
 
-function patch (api, id, data) {
-  let URL = api + (id ? '/' + id : '')
-  return axios.put(URL, JSON.stringify(data))
+function patch (url, data) {
+  let URL = url + (data.id ? '/' + data.id : '')
+  return axios.patch(URL, JSON.stringify(data))
     .then(response => response.data)
     .catch(error => error.message)
 }
 
-function del (api, id) {
-  let URL = `${api}/${id}`
+function del (url, id) {
+  let URL = `${url}/${id}`
   return axios.delete(URL)
     .then(response => response.data)
     .catch(error => error.message)

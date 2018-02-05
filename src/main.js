@@ -5,15 +5,19 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import VueJWT from 'vuejs-jwt'
+import ElementUI from 'element-ui'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'element-ui/lib/theme-chalk/index.css'
 
 // components
 import BackHistory from './components/shared/backHistory'
 
 Vue.config.productionTip = false
-Vue.use(BootstrapVue, axios, VueJWT)
+Vue.use(BootstrapVue, axios)
+Vue.use(VueJWT)
+Vue.use(ElementUI)
 
 // use components for global
 Vue.component('back-history', BackHistory)

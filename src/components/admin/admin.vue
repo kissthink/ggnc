@@ -56,7 +56,7 @@
 
 <script>
 export default {
-  name: 'Dashboard',
+  name: 'Admin',
   data () {
     return {
       name: 'admin'
