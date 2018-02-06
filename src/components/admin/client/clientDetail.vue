@@ -1,27 +1,28 @@
 <template>
   <div>
-    <h4 class="dashboard-title">用户信息</h4>
+    <h4 class="admin-title">用户信息</h4>
   </div>
 </template>
 
 <script>
+import adminService from '@/assets/js/adminService.js'
 export default {
   name: 'ClientDetail',
   data () {
     return {
-      user: ''
+      userInfo: ''
     }
   },
   methods: {
 
   },
   mounted () {
-    // let id = +this.$route.params.id
-    // if (id > 0) {
-    //   axiosService.get(axiosService.USER_DETAIL, id).then(res => {
-    //     this.user = res.data.user
-    //   })
-    // }
+    let id = +this.$route.params.id
+    if (id > 0) {
+      adminService.getUserDetail(id).then(res => {
+        this.userInfo = res
+      })
+    }
   }
 }
 </script>

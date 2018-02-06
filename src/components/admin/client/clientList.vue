@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="dashboard-title">用户列表</h4>
+    <h4 class="admin-title">用户列表</h4>
 
     <table class="table table-hover table-bordered">
       <thead class="table-active">
@@ -18,7 +18,7 @@
           <td>{{isRealName(user)}}</td>
           <td>
             <button class="btn btn-info btn-sm" @click="switchEnable(user)">{{isEnable(user)}}</button>
-            <button class="btn btn-danger btn-sm">删除</button>
+            <!-- <button class="btn btn-danger btn-sm">删除</button> -->
           </td>
         </tr>
       </tbody>
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     selectClient (user) {
-      this.$router.push(`/dashboard/client-detail/${user.id}`)
+      this.$router.push(`/admin/client-detail/${user.id}`)
     },
     isRealName (user) {
       return user.userInfo ? '是' : '否'

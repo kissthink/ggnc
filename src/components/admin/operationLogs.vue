@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="dashboard-title">操作日志</h4>
+    <h4 class="admin-title">操作日志</h4>
   </div>
 </template>
 

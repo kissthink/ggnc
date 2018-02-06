@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="dashboard-title">道具列表</h4>
+    <h4 class="admin-title">道具列表</h4>
   </div>
 </template>
 

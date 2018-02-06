@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="dashboard-title">系统公告管理</h4>
+    <h4 class="admin-title">系统公告管理</h4>
   </div>
 </template>
 

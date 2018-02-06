@@ -6,22 +6,25 @@
       <b-form>
         <b-form-group horizontal
                 :label-cols="4"
-                label="用户名："
-                :invalid-feedback="errorMessage"
-                :state="state"
+                label="手机号："
+                :invalid-feedback="userMobileErrorMessage"
+                :state="userMobileState"
+                size="lg"
                 label-for="username">
-          <b-form-input id="username" :state="state" v-model="username"></b-form-input>
+          <b-form-input id="username" :state="userMobileState" v-model="userMobile"></b-form-input>
         </b-form-group>
 
         <b-form-group horizontal
                 :label-cols="4"
                 label="密码："
-                :state="state"
+                :invalid-feedback="passwordErrorMessage"
+                :state="passwordState"
+                size="lg"
                 label-for="password">
-          <b-form-input id="password" :state="state" type="password"  v-model="password"></b-form-input>
+          <b-form-input id="password" :state="passwordState" type="password"  v-model="password"></b-form-input>
         </b-form-group>
 
-        <button class="btn btn-success btn-block mt-4" @click.prevent="login()">登录</button>
+        <button class="btn btn-success btn-block mt-4" @click.prevent="login()" :disabled="isLogin">{{buttonLoginMessage}}</button>
       </b-form>
     </div>
   </div>
@@ -34,24 +37,46 @@ export default {
   name: 'Login',
   data () {
     return {
-      username: '',
+      isLogin: false,
+      buttonLoginMessage: '登录',
+      userMobile: '',
       password: '',
-      errorMessage: '',
-      state: true
+      userMobileErrorMessage: '',
+      passwordErrorMessage: '',
+      userMobileState: true,
+      passwordState: true
     }
   },
   methods: {
     login () {
-      if (this.username === '' || this.password === '') {
-        this.errorMessage = '账号密码不能为空'
-        this.state = false
+      if (this.isLogin) {
         return
       }
+      if (this.userMobile === '') {
+        this.userMobileErrorMessage = '手机号不能为空'
+        this.userMobileState = false
+        return
+      }
+      if (this.password === '') {
+        this.passwordErrorMessage = '请输入密码'
+        this.passwordState = false
+        return
+      }
+      this.isLogin = true
+      this.buttonLoginMessage = '登录中...'
       axios.post(url.userLogin, {
-        mobile: this.username,
+        mobile: this.userMobile,
         password: this.password
       }).then(res => {
-        console.log(res)
+        this.isLogin = false
+        this.buttonLoginMessage = '登录'
+        if (res.data.status > 200) {
+          this.$message({message: `用户名或密码错误`, type: 'error'})
+        } else {
+          this.$message({message: `欢迎回来`, type: 'success'})
+          localStorage.setItem('USER_TOKEN', res.data.data.token)
+          this.$router.push('/my')
+        }
       })
     }
   }

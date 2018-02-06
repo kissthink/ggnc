@@ -1,8 +1,10 @@
 import axios from 'axios'
 
+let USER_TOKEN = localStorage.getItem('USER_TOKEN')
+
 // axios defaults config
 axios.defaults.baseURL = 'http://172.168.1.2/'
-axios.defaults.headers.common['Authorization'] = ''
+axios.defaults.headers.common['Authorization'] = USER_TOKEN
 
 // methods
 function getAll (url) {

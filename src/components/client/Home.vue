@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     loginOut () {
-      localStorage.removeItem('LOGIN_USER')
+      localStorage.removeItem('USER_TOKEN')
       this.$router.push('/login')
     }
   }

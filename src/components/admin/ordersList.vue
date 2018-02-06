@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="dashboard-title">订单列表</h4>
+    <h4 class="admin-title">订单列表</h4>
   </div>
 </template>
 

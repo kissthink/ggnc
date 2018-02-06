@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 // components
 import Login from '@/components/Login'
-import Dashboard from '@/components/Dashboard'
+import AdminLogin from '@/components/AdminLogin'
 import PageNotFound from '@/components/PageNotFound'
 
 // client
@@ -26,7 +26,8 @@ import Notice from '@/components/client/personal-center/Notice'
 import Admin from '@/components/admin/Admin'
 import ClientList from '@/components/admin/client/ClientList'
 import ClientDetail from '@/components/admin/client/ClientDetail'
-import GoodsList from '@/components/admin/GoodsList'
+import GoodsList from '@/components/admin/goods/GoodsList'
+import GoodsDetail from '@/components/admin/goods/GoodsDetail'
 import PropsList from '@/components/admin/PropsList'
 import OrdersList from '@/components/admin/OrdersList'
 import OperationLogs from '@/components/admin/OperationLogs'
@@ -37,9 +38,9 @@ Vue.use(Router)
 let router = new Router({
   mode: 'history',
   routes: [
-    { path: '/', redirect: '/dashboard' },
-    { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+    { path: '/', redirect: '/login' },
     { path: '/login', name: 'Login', component: Login },
+    { path: '/admin-login', name: 'AdminLogin', component: AdminLogin },
     // client
     { path: '/home', name: 'Home', component: Home },
     { path: '/my',
@@ -70,7 +71,8 @@ let router = new Router({
         { path: 'orders-list', name: 'OrdersList', component: OrdersList },
         { path: 'operation-logs', name: 'OperationLogs', component: OperationLogs },
         { path: 'notice-management', name: 'NoticeManagement', component: NoticeManagement },
-        { path: 'client-detail/:id', name: 'ClientDetail', component: ClientDetail }
+        { path: 'client-detail/:id', name: 'ClientDetail', component: ClientDetail },
+        { path: 'goods-detail/:id', name: 'GoodsDetail', component: GoodsDetail }
       ]
     },
     // 404
@@ -83,15 +85,19 @@ let router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  const LOGIN_USER = localStorage.getItem('LOGIN_USER')
-  if (LOGIN_USER) {
+  const USER_TOKEN = localStorage.getItem('USER_TOKEN')
+  if (USER_TOKEN) {
     if (to.path === '/login') {
-      next({path: '/dashboard'})
+      next({path: '/my'})
+    } else if (to.path === '/admin-login') {
+      next({path: '/admin'})
     } else {
       next()
     }
   } else {
     if (to.path === '/login') {
+      next()
+    } else if (to.path === '/admin-login') {
       next()
     } else {
       if (!to.matched.some(record => record.meta.requiresAuth)) {

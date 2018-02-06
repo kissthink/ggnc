@@ -3,43 +3,43 @@
     <div class="header">
       <h1>咕咕农场后台管理系统</h1>
       <div class="admin-name">
-        {{adminName}} <a href="javascript:void(0);" @click="loginOut()">退出</a>
+        {{name}} <a href="javascript:void(0);" @click="loginOut()">退出</a>
       </div>
     </div>
     <div class="silder-bar">
       <div class="menu-item">
         <ul>
-          <router-link to="/dashboard/client-list" tag="li">
+          <router-link to="/admin/client-list" tag="li">
             <div class="menu-icon">
               <i class="fas fa-users"></i>
             </div>
             用户管理
           </router-link>
-          <router-link to="/dashboard/goods-list" tag="li">
+          <router-link to="/admin/goods-list" tag="li">
             <div class="menu-icon">
               <i class="fas fa-shopping-cart"></i>
             </div>
             商品管理
           </router-link>
-          <router-link to="/dashboard/props-list" tag="li">
+          <router-link to="/admin/props-list" tag="li">
             <div class="menu-icon">
               <i class="fas fa-wrench"></i>
             </div>
             道具管理
           </router-link>
-          <router-link to="/dashboard/orders-list" tag="li">
+          <router-link to="/admin/orders-list" tag="li">
             <div class="menu-icon">
               <i class="fas fa-list-ol"></i>
             </div>
             订单管理
           </router-link>
-          <router-link to="/dashboard/operation-logs" tag="li">
+          <router-link to="/admin/operation-logs" tag="li">
             <div class="menu-icon">
               <i class="fas fa-calendar-alt"></i>
             </div>
             操作日志
           </router-link>
-          <router-link to="/dashboard/notice-management" tag="li">
+          <router-link to="/admin/notice-management" tag="li">
             <div class="menu-icon">
               <i class="fas fa-bullhorn"></i>
             </div>
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import adminService from '@/assets/js/adminService'
 export default {
   name: 'Admin',
   data () {
@@ -62,16 +63,19 @@ export default {
       name: 'admin'
     }
   },
-  computed: {
-    adminName () {
-      return localStorage.getItem('LOGIN_USER').split(',')[0]
+  methods: {
+    getLoginNameForToken () {
+      const token = localStorage.getItem('USER_TOKEN').split(' ')[1]
+      let userInfo = this.$jwt.decode(token, adminService.secretKey)
+      this.name = userInfo.nickName
+    },
+    loginOut () {
+      localStorage.removeItem('USER_TOKEN')
+      this.$router.push('/admin-login')
     }
   },
-  methods: {
-    loginOut () {
-      localStorage.removeItem('LOGIN_USER')
-      this.$router.push('/login')
-    }
+  created () {
+    this.getLoginNameForToken()
   }
 }
 </script>
