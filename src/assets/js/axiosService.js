@@ -33,9 +33,16 @@ function update (url, data) {
     .catch(error => error.message)
 }
 
-function patch (url, data) {
+function patch (url, data, queryParams = undefined) {
   let URL = url + (data.id ? '/' + data.id : '')
-  return axios.patch(URL, JSON.stringify(data))
+  if (!queryParams) {
+    queryParams = {}
+  }
+  return axios({
+    method: 'patch',
+    url: URL,
+    data: queryParams
+  })
     .then(response => response.data)
     .catch(error => error.message)
 }

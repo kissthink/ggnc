@@ -150,5 +150,6 @@ export default {
     float: right;
     padding: 15px;
     width: calc(100% - 200px);
+    overflow-y: hidden;
   }
 </style>
