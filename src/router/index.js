@@ -86,6 +86,7 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
   const USER_TOKEN = localStorage.getItem('USER_TOKEN')
+  // 需判断token的过期时间
   if (USER_TOKEN) {
     if (to.path === '/login') {
       next({path: '/my'})

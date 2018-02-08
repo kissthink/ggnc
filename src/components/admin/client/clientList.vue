@@ -16,7 +16,7 @@
           <td>{{user.id}}</td>
           <td><a href="javascript:void(0);" @click="selectClient(user)">{{user.nickName}}</a></td>
           <td>{{user.mobile}}</td>
-          <td>{{user.asset.balance}} {{switchAssetMessage}}</td>
+          <td>{{user.asset.balance}} {{isBlocked(user)}}</td>
           <td>{{isRealName(user)}}</td>
           <td>
             <button class="btn btn-info btn-sm" @click="switchEnable(user)">{{isEnable(user)}}</button>
@@ -39,6 +39,11 @@ export default {
     }
   },
   methods: {
+    getUserList () {
+      adminService.getUserList().then(res => {
+        this.userList = res
+      })
+    },
     selectClient (user) {
       this.$router.push(`/admin/client-detail/${user.id}`)
     },
@@ -48,33 +53,42 @@ export default {
     isEnable (user) {
       return user.enable ? '禁用' : '启用'
     },
+    isBlocked (user) {
+      return user.asset.blocked ? '(已冻结)' : ''
+    },
     switchEnable (user) {
       user.enable = !user.enable
       adminService.switchUserEnable(user).then(res => {
-        if (!res) {
-          this.$message({message: `成功禁用用户“${user.nickName}”`, type: 'success'})
+        if (res.status > 200) {
+          this.$message({message: `禁用/启用用户“${user.nickName}”失败`, type: 'success'})
         } else {
-          this.$message({message: `成功启用用户“${user.nickName}”`, type: 'success'})
+          if (!res) {
+            this.$message({message: `成功禁用用户“${user.nickName}”`, type: 'success'})
+          } else {
+            this.$message({message: `成功启用用户“${user.nickName}”`, type: 'success'})
+          }
         }
       })
     },
     switchAsset (user) {
       user.blocked = !user.blocked
       adminService.switchAssetUser(user).then(res => {
-        if (res) {
-          this.switchAssetMessage = '(已冻结)'
-          this.$message({message: `成功冻结“${user.nickName}”的余额`, type: 'success'})
+        if (res.status > 200) {
+          this.$message({message: `冻结/解冻“${user.nickName}”的余额失败`, type: 'error'})
         } else {
-          this.switchAssetMessage = ''
-          this.$message({message: `成功解冻“${user.nickName}”的余额`, type: 'success'})
+          if (res) {
+            this.$message({message: `成功冻结“${user.nickName}”的余额`, type: 'success'})
+            this.getUserList()
+          } else {
+            this.$message({message: `成功解冻“${user.nickName}”的余额`, type: 'success'})
+            this.getUserList()
+          }
         }
       })
     }
   },
-  beforeCreate () {
-    adminService.getUserList().then(res => {
-      this.userList = res
-    })
+  created () {
+    this.getUserList()
   }
 }
 </script>

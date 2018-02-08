@@ -6,6 +6,7 @@ export default {
   userSwitchAsset: 'api/user/switchAsset', // 冻结、解冻余额
   userDetail: 'api/user/detail', // 用户信息
   userTopUpBalance: 'api/user/topUpBalance', // 充值余额
+  userWithdrawBalance: 'api/user/balanceWithdraw', // 提现余额
   userTopUpBreedingEgg: 'api/user/topUpBreedingEgg', // 充值种蛋
   userWithdrawBreedingEgg: 'api/user/breedingEggWithdraw', // 提现种蛋
   userTopUpBreedingHens: 'api/user/topUpBreedingHens', // 充值种鸡
@@ -14,5 +15,7 @@ export default {
   userWithdrawCommodityEgg: 'api/user/commodityEggWithdraw', // 提现商品蛋
   userTopUpCommodityChicken: 'api/user/topUpCommodityChicken', // 充值商品鸡
   userWithdrawCommodityChicken: 'api/user/commodityChickenWithdraw', // 提现商品鸡
-  goodsList: 'api/commodity/list' // 商品列表
+  goodsList: 'api/commodity/list', // 商品列表
+  goodsDetail: 'api/commodity/detail', // 商品详情
+  updateGoodsDetail: 'api/commodity/update' // 修改商品信息
 }

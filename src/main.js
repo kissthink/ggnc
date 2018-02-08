@@ -13,6 +13,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 // components
 import BackHistory from './components/shared/backHistory'
+import AmountSelect from './components/shared/amountSelect'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue, axios)
@@ -21,6 +22,7 @@ Vue.use(VueJWT)
 
 // use components for global
 Vue.component('back-history', BackHistory)
+Vue.component('amount-select', AmountSelect)
 
 /* eslint-disable no-new */
 new Vue({

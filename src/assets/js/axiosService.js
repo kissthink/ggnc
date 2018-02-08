@@ -26,9 +26,13 @@ function post (url, data) {
     .catch(error => error.message)
 }
 
-function update (url, data) {
-  let URL = `${url}/${data.id}`
-  return axios.put(URL, JSON.stringify(data))
+function update (url, queryParams) {
+  let URL = `${url}/${queryParams.id}`
+  return axios({
+    method: 'put',
+    url: URL,
+    data: queryParams
+  })
     .then(response => response.data)
     .catch(error => error.message)
 }
@@ -36,7 +40,12 @@ function update (url, data) {
 function patch (url, data, queryParams = undefined) {
   let URL = url + (data.id ? '/' + data.id : '')
   if (!queryParams) {
-    queryParams = {}
+    return axios({
+      method: 'patch',
+      url: URL
+    })
+      .then(response => response.data)
+      .catch(error => error.message)
   }
   return axios({
     method: 'patch',
