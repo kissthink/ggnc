@@ -4,11 +4,11 @@
 
     <div class="user-info" @click="toTargetRouter('/personalData')">
       <div class="user-avatar">
-        <img src="../../../assets/img/wallhaven-603537.jpg" alt="wallhaven-603537">
+        <img src="../../../assets/img/user.png" height="280" width="280" alt="wallhaven-603537">
       </div>
       <div class="user-name">
-        <p>养鸡专业户</p>
-        <p class="user-mobile">手机号: 13800138000</p>
+        <p>{{user.nickName}}</p>
+        <p class="user-mobile">手机号: {{user.mobile}}</p>
       </div>
       <div class="user-code" @click.stop="showCodePic()">
         <i class="fas fa-qrcode"></i>
@@ -22,12 +22,19 @@
       <span>钱包</span>
     </div>
 
-    <div class="other" @click.stop="toTargetRouter('/new-mamber')">
-      <div class="other-item">
+    <div class="other">
+      <div class="other-item" @click.stop="registerNewMamber()">
         <div class="icon">
           <i class="fas fa-male"></i>
         </div>
         <span>注册新会员</span>
+      </div>
+
+      <div class="other-item" @click.stop="toTargetRouter('/new-mamber')">
+        <div class="icon">
+          <i class="fas fa-address-card"></i>
+        </div>
+        <span>实名认证</span>
       </div>
 
       <div class="other-item" @click.stop="toTargetRouter('/mt-team')">
@@ -67,6 +74,8 @@
 
 <script>
 import QrcodeVue from 'qrcode.vue'
+import tokenService from '@/assets/js/tokenService'
+import clientService from '@/assets/js/clientService'
 
 export default {
   name: 'Information',
@@ -75,20 +84,39 @@ export default {
   },
   data () {
     return {
-      codeUrl: `http://172.168.1.16:8080/new-mamber`,
-      codeSize: 300
+      codeUrl: '',
+      codeSize: 300,
+      user: '',
+      userId: '',
+      userNickName: ''
     }
   },
   computed: {
 
   },
   methods: {
+    getUserInfo () {
+      let userId = tokenService.decodeToken().id
+      clientService.getUserInfo(userId).then(res => {
+        this.userId = res.id
+        this.userNickName = res.nickName
+        this.codeUrl = `http://172.168.1.16:8080/new-mamber?masterId=${res.id}&masterName=${encodeURI(res.nickName)}`
+        this.user = res
+      })
+    },
     toTargetRouter (url) {
       this.$router.push(url)
+    },
+    registerNewMamber () {
+      let queryData = {masterId: this.userId, masterName: this.userNickName}
+      this.$router.push({path: '/new-mamber', query: queryData})
     },
     showCodePic () {
       this.$refs.codePic.show()
     }
+  },
+  mounted () {
+    this.getUserInfo()
   }
 }
 </script>

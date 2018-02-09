@@ -1,5 +1,8 @@
 export default {
   userLogin: 'app/user/login', // 客户端登录
+  userInfo: 'app/user/detail', // 用户信息
+  userRegister: 'app/user/register', // 注册用户
+
   adminLogin: 'api/user/login', // 后台登录
   userList: 'api/user/list', // 用户列表
   userSwitch: 'api/user/switch', // 禁用、启用用户

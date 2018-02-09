@@ -21,7 +21,7 @@ function get (url, id) {
 }
 
 function post (url, data) {
-  return axios.post(url, JSON.stringify(data))
+  return axios.post(url, data)
     .then(response => response.data)
     .catch(error => error.message)
 }

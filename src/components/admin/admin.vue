@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     getLoginNameForToken () {
-      this.name = tokenService.decodeToken().nikeName
+      this.name = tokenService.decodeToken().nickName
     },
     loginOut () {
       localStorage.removeItem('USER_TOKEN')
