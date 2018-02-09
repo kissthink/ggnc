@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+// service
+import tokenService from '@/assets/js/tokenService'
+
 // components
 import Login from '@/components/Login'
 import AdminLogin from '@/components/AdminLogin'
@@ -28,7 +31,8 @@ import ClientList from '@/components/admin/client/ClientList'
 import ClientDetail from '@/components/admin/client/ClientDetail'
 import GoodsList from '@/components/admin/goods/GoodsList'
 import GoodsDetail from '@/components/admin/goods/GoodsDetail'
-import PropsList from '@/components/admin/PropsList'
+import PropsList from '@/components/admin/props/PropsList'
+import PropsDetail from '@/components/admin/props/PropsDetail'
 import OrdersList from '@/components/admin/OrdersList'
 import OperationLogs from '@/components/admin/OperationLogs'
 import NoticeManagement from '@/components/admin/NoticeManagement'
@@ -42,9 +46,10 @@ let router = new Router({
     { path: '/login', name: 'Login', component: Login },
     { path: '/admin-login', name: 'AdminLogin', component: AdminLogin },
     // client
-    { path: '/home', name: 'Home', component: Home },
+    { path: '/home', name: 'Home', component: Home, meta: { requiresAuth: true } },
     { path: '/my',
       component: My,
+      meta: { requiresAuth: true },
       children: [
         { path: 'information', name: 'Information', component: Information }, // 个人信息
         { path: 'market', name: 'Market', component: Market }, // 市场
@@ -53,16 +58,17 @@ let router = new Router({
         { path: '', redirect: 'information' }
       ]
     },
-    { path: '/personalData', name: 'PersonalData', component: PersonalData }, // 个人信息详情
-    { path: '/wallet', name: 'Wallet', component: Wallet }, // 钱包
+    { path: '/personalData', name: 'PersonalData', component: PersonalData, meta: { requiresAuth: true } }, // 个人信息详情
+    { path: '/wallet', name: 'Wallet', component: Wallet, meta: { requiresAuth: true } }, // 钱包
     { path: '/new-mamber', name: 'NewMamber', component: NewMamber, meta: { requiresAuth: false } }, // 注册新会员
-    { path: '/mt-team', name: 'MyTeam', component: MyTeam }, // 团队
-    { path: '/chicken-detail', name: 'ChickenDetail', component: ChickenDetail }, // 养鸡明细
-    { path: '/notice', name: 'Notice', component: Notice }, // 公告
-    { path: '/edit-password', name: 'EditPassword', component: EditPassword }, // 修改密码
+    { path: '/mt-team', name: 'MyTeam', component: MyTeam, meta: { requiresAuth: true } }, // 团队
+    { path: '/chicken-detail', name: 'ChickenDetail', component: ChickenDetail, meta: { requiresAuth: true } }, // 养鸡明细
+    { path: '/notice', name: 'Notice', component: Notice, meta: { requiresAuth: true } }, // 公告
+    { path: '/edit-password', name: 'EditPassword', component: EditPassword, meta: { requiresAuth: true } }, // 修改密码
     // admin
     { path: '/admin',
       component: Admin,
+      meta: { requiresAuth: true },
       children: [
         { path: '', redirect: 'client-list' },
         { path: 'client-list', name: 'ClientList', component: ClientList },
@@ -72,7 +78,8 @@ let router = new Router({
         { path: 'operation-logs', name: 'OperationLogs', component: OperationLogs },
         { path: 'notice-management', name: 'NoticeManagement', component: NoticeManagement },
         { path: 'client-detail/:id', name: 'ClientDetail', component: ClientDetail },
-        { path: 'goods-detail/:id', name: 'GoodsDetail', component: GoodsDetail }
+        { path: 'goods-detail/:id', name: 'GoodsDetail', component: GoodsDetail },
+        { path: 'props-detail/:id', name: 'PropsDetail', component: PropsDetail }
       ]
     },
     // 404
@@ -85,9 +92,7 @@ let router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  const USER_TOKEN = localStorage.getItem('USER_TOKEN')
-  // 需判断token的过期时间
-  if (USER_TOKEN) {
+  if (!tokenService.isOverdue()) {
     if (to.path === '/login') {
       next({path: '/my'})
     } else if (to.path === '/admin-login') {

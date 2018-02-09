@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import adminService from '@/assets/js/adminService'
+import tokenService from '@/assets/js/tokenService'
 export default {
   name: 'Admin',
   data () {
@@ -65,9 +65,7 @@ export default {
   },
   methods: {
     getLoginNameForToken () {
-      const token = localStorage.getItem('USER_TOKEN').split(' ')[1]
-      let userInfo = this.$jwt.decode(token, adminService.secretKey)
-      this.name = userInfo.nickName
+      this.name = tokenService.decodeToken().nikeName
     },
     loginOut () {
       localStorage.removeItem('USER_TOKEN')

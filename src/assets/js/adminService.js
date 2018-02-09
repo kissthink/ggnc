@@ -1,8 +1,6 @@
 import * as axiosService from './axiosService.js'
 import apiUrl from './apiUrl.js'
 
-const secretKey = 'suancloud_chickenfarm'
-
 // 获取用户列表
 function getUserList () {
   return axiosService.getAll(apiUrl.userList).then(res => {
@@ -122,8 +120,28 @@ function updateGoodsDetail (goods) {
   })
 }
 
+// 获取道具列表
+function getPropsList () {
+  return axiosService.getAll(apiUrl.propsList).then(res => {
+    return res.data.propList
+  })
+}
+
+// 获取道具信息
+function getPropsDetail (id) {
+  return axiosService.get(apiUrl.propsDetail, id).then(res => {
+    return res.data.prop
+  })
+}
+
+// 修改道具信息
+function updatePropsDetail (props) {
+  return axiosService.update(apiUrl.propsUpdate, props).then(res => {
+    return res
+  })
+}
+
 export default {
-  secretKey,
   getUserList,
   switchUserEnable,
   switchAssetUser,
@@ -140,5 +158,8 @@ export default {
   withdrawCommodityChicken,
   getGoodsList,
   getGoodsDetail,
-  updateGoodsDetail
+  updateGoodsDetail,
+  getPropsList,
+  getPropsDetail,
+  updatePropsDetail
 }

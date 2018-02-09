@@ -2,7 +2,7 @@ export default {
   userLogin: 'app/user/login', // 客户端登录
   adminLogin: 'api/user/login', // 后台登录
   userList: 'api/user/list', // 用户列表
-  userSwitch: 'api/user/switch', // 禁用、启用用户,
+  userSwitch: 'api/user/switch', // 禁用、启用用户
   userSwitchAsset: 'api/user/switchAsset', // 冻结、解冻余额
   userDetail: 'api/user/detail', // 用户信息
   userTopUpBalance: 'api/user/topUpBalance', // 充值余额
@@ -17,5 +17,8 @@ export default {
   userWithdrawCommodityChicken: 'api/user/commodityChickenWithdraw', // 提现商品鸡
   goodsList: 'api/commodity/list', // 商品列表
   goodsDetail: 'api/commodity/detail', // 商品详情
-  updateGoodsDetail: 'api/commodity/update' // 修改商品信息
+  updateGoodsDetail: 'api/commodity/update', // 修改商品信息
+  propsList: 'api/prop/list', // 道具列表
+  propsDetail: 'api/prop/detail', // 道具详情
+  propsUpdate: 'api/prop/update' // 修改道具信息
 }
