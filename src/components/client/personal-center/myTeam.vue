@@ -6,29 +6,17 @@
     <div class="team">
       <div class="master">
         <p>我的师傅：</p>
-        <div class="list">
-          <strong>Admin</strong>
-          <span>13800138000</span>
+        <div class="list" v-if="team.inviter">
+          <strong>{{team.inviter.nickName}}</strong>
+          <span>{{team.inviter.mobile}}</span>
         </div>
       </div>
 
       <div class="disciple">
         <p>我的徒弟：</p>
-        <div class="list">
-          <strong>disciple</strong>
-          <span>12345678901</span>
-        </div>
-        <div class="list">
-          <strong>disciple</strong>
-          <span>12345678901</span>
-        </div>
-        <div class="list">
-          <strong>disciple</strong>
-          <span>12345678901</span>
-        </div>
-        <div class="list">
-          <strong>disciple</strong>
-          <span>12345678901</span>
+        <div class="list" v-for="invitee of invitees" :key="invitee.id">
+          <strong>{{invitee.nickName}}</strong>
+          <span>{{invitee.mobile}}</span>
         </div>
       </div>
     </div>
@@ -40,8 +28,18 @@ export default {
   name: 'MyTeam',
   data () {
     return {
-
+      team: '',
+      invitees: []
     }
+  },
+  methods: {
+    getTeacherAndPupil () {
+      this.team = this.$route.query
+      this.invitees = JSON.parse(this.team.invitee)
+    }
+  },
+  mounted () {
+    this.getTeacherAndPupil()
   }
 }
 </script>

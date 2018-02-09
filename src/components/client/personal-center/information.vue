@@ -30,14 +30,14 @@
         <span>注册新会员</span>
       </div>
 
-      <div class="other-item" @click.stop="toTargetRouter('/new-mamber')">
+      <div class="other-item" v-if="!user.userInfo" @click.stop="toTargetRouter('/new-mamber')">
         <div class="icon">
           <i class="fas fa-address-card"></i>
         </div>
         <span>实名认证</span>
       </div>
 
-      <div class="other-item" @click.stop="toTargetRouter('/mt-team')">
+      <div class="other-item" @click.stop="myTeam()">
         <div class="icon">
           <i class="fas fa-users"></i>
         </div>
@@ -110,6 +110,10 @@ export default {
     registerNewMamber () {
       let queryData = {masterId: this.userId, masterName: this.userNickName}
       this.$router.push({path: '/new-mamber', query: queryData})
+    },
+    myTeam () {
+      let queryData = {invitee: JSON.stringify(this.user.invitee), inviter: JSON.stringify(this.user.inviter)}
+      this.$router.push({path: '/mt-team', query: queryData})
     },
     showCodePic () {
       this.$refs.codePic.show()
