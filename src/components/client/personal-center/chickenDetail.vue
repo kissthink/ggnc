@@ -5,8 +5,8 @@
 
     <div class="chicken-list">
       <div class="row mb-2">
-        <div class="col-6">在养鸡： 35</div>
-        <div class="col-6">在孵蛋： 106</div>
+        <div class="col-6">在养鸡： {{asset.inHennery}}</div>
+        <div class="col-6">在孵蛋： {{asset.hatchingEgg}}</div>
       </div>
       <div class="row mb-2">
         <div class="col-6">已售鸡： 70</div>
@@ -19,10 +19,10 @@
         <div class="col-12">售蛋盈利余额： 13000</div>
       </div>
       <div class="row mb-2">
-        <div class="col-12">商品鸡： 35000</div>
+        <div class="col-12">商品鸡： {{asset.commodityChicken}}</div>
       </div>
       <div class="row">
-        <div class="col-12">商品蛋： 35000</div>
+        <div class="col-12">商品蛋： {{asset.commodityEgg}}</div>
       </div>
     </div>
   </div>
@@ -32,7 +32,17 @@
 export default {
   name: 'ChickenDetail',
   data () {
-    return {}
+    return {
+      asset: ''
+    }
+  },
+  methods: {
+    getChickenDetail () {
+      this.asset = JSON.parse(this.$route.query.asset)
+    }
+  },
+  mounted () {
+    this.getChickenDetail()
   }
 }
 </script>

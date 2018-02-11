@@ -3,7 +3,9 @@ import axios from 'axios'
 let USER_TOKEN = localStorage.getItem('USER_TOKEN')
 
 // axios defaults config
-axios.defaults.baseURL = 'http://172.168.1.2/'
+// axios.defaults.baseURL = 'http://172.168.1.2:8080/'
+axios.defaults.baseURL = 'http://192.168.99.100:8080/'
+// axios.defaults.baseURL = 'http://api.test.ggnc2018.com:8080/'
 axios.defaults.headers.common['Authorization'] = USER_TOKEN
 
 // methods
@@ -63,4 +65,16 @@ function del (url, id) {
     .catch(error => error.message)
 }
 
-export { getAll, get, post, update, patch, del }
+function uploadPic (url, file) {
+  let param = new FormData()
+  param.append('file', file, file.name)
+
+  let config = {
+    headers: {'Content-Type': 'multipart/form-data'}
+  }
+  return axios.post(url, param, config)
+    .then(response => response.data)
+    .catch(error => error.message)
+}
+
+export { getAll, get, post, update, patch, del, uploadPic }

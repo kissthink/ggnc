@@ -6,9 +6,9 @@
     <div class="team">
       <div class="master">
         <p>我的师傅：</p>
-        <div class="list" v-if="team.inviter">
-          <strong>{{team.inviter.nickName}}</strong>
-          <span>{{team.inviter.mobile}}</span>
+        <div class="list" v-if="inviter">
+          <strong>{{inviter.nickName}}</strong>
+          <span>{{inviter.mobile}}</span>
         </div>
       </div>
 
@@ -28,14 +28,14 @@ export default {
   name: 'MyTeam',
   data () {
     return {
-      team: '',
-      invitees: []
+      invitees: [],
+      inviter: ''
     }
   },
   methods: {
     getTeacherAndPupil () {
-      this.team = this.$route.query
-      this.invitees = JSON.parse(this.team.invitee)
+      this.inviter = JSON.parse(this.$route.query.inviter)
+      this.invitees = JSON.parse(this.$route.query.invitee)
     }
   },
   mounted () {

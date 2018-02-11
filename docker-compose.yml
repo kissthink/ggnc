@@ -1,0 +1,22 @@
+version: "2"
+services:
+  db:
+    image: docker-registry.test.ggnc2018.com:5000/library/mysql
+    container_name: db
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1 
+      encoding: utf8
+      max_allowed_packet: 10240
+    volumes:
+      - /project/mysql:/var/lib/mysql
+  ggnc:
+    image: docker-registry.test.ggnc2018.com:5000/chickenfarm
+    container_name: ggnc
+    ports:
+      - 8080:80
+#    volumes:
+#       - /mnt/m2:/root/.m2
+    links:
+      - db:db

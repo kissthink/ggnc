@@ -29,9 +29,18 @@ function regPassword (str) {
   return str.length >= 6 && str.length <= 20
 }
 
+function regIdCard (str) {
+  if (!str) {
+    return
+  }
+  const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+  return reg.test(str)
+}
+
 export default {
   regAmount,
   regInteger,
   regMobile,
-  regPassword
+  regPassword,
+  regIdCard
 }

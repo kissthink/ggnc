@@ -21,6 +21,7 @@ import PersonalData from '@/components/client/personal-center/PersonalData'
 import EditPassword from '@/components/client/personal-center/EditPassword'
 import Wallet from '@/components/client/personal-center/Wallet'
 import NewMamber from '@/components/client/personal-center/NewMamber'
+import RealName from '@/components/client/personal-center/RealName'
 import MyTeam from '@/components/client/personal-center/MyTeam'
 import ChickenDetail from '@/components/client/personal-center/ChickenDetail'
 import Notice from '@/components/client/personal-center/Notice'
@@ -61,6 +62,7 @@ let router = new Router({
     { path: '/personalData', name: 'PersonalData', component: PersonalData, meta: { requiresAuth: true } }, // 个人信息详情
     { path: '/wallet', name: 'Wallet', component: Wallet, meta: { requiresAuth: true } }, // 钱包
     { path: '/new-mamber', name: 'NewMamber', component: NewMamber, meta: { requiresAuth: false } }, // 注册新会员
+    { path: '/real-name', name: 'RealName', component: RealName, meta: { requiresAuth: true } },
     { path: '/mt-team', name: 'MyTeam', component: MyTeam, meta: { requiresAuth: true } }, // 团队
     { path: '/chicken-detail', name: 'ChickenDetail', component: ChickenDetail, meta: { requiresAuth: true } }, // 养鸡明细
     { path: '/notice', name: 'Notice', component: Notice, meta: { requiresAuth: true } }, // 公告

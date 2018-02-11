@@ -30,7 +30,7 @@
         <span>注册新会员</span>
       </div>
 
-      <div class="other-item" v-if="!user.userInfo" @click.stop="toTargetRouter('/new-mamber')">
+      <div class="other-item" v-if="!user.userInfo" @click.stop="realName()">
         <div class="icon">
           <i class="fas fa-address-card"></i>
         </div>
@@ -44,7 +44,7 @@
         <span>我的团队</span>
       </div>
 
-      <div class="other-item" @click.stop="toTargetRouter('/chicken-detail')">
+      <div class="other-item" @click.stop="chickenDetail()">
         <div class="icon">
           <i class="fas fa-chart-pie"></i>
         </div>
@@ -67,7 +67,7 @@
     </div>
 
     <b-modal ref="codePic" hide-footer title="我的二维码">
-      <qrcode-vue :value="codeUrl" :size="codeSize" level="H" className="qrcode"></qrcode-vue>
+      <qrcode-vue :value="codeUrl" :size="codeSize" level="L" className="qrcode"></qrcode-vue>
     </b-modal>
   </div>
 </template>
@@ -111,9 +111,17 @@ export default {
       let queryData = {masterId: this.userId, masterName: this.userNickName}
       this.$router.push({path: '/new-mamber', query: queryData})
     },
+    realName () {
+      let queryData = {userId: this.user.id}
+      this.$router.push({path: '/real-name', query: queryData})
+    },
     myTeam () {
       let queryData = {invitee: JSON.stringify(this.user.invitee), inviter: JSON.stringify(this.user.inviter)}
       this.$router.push({path: '/mt-team', query: queryData})
+    },
+    chickenDetail () {
+      let queryData = {asset: JSON.stringify(this.user.asset)}
+      this.$router.push({path: '/chicken-detail', query: queryData})
     },
     showCodePic () {
       this.$refs.codePic.show()
