@@ -5,7 +5,7 @@
 
     <div class="wallet">
       <div class="top-up">充值</div>
-      <div class="balance">余额：0.00元</div>
+      <div class="balance">余额：{{userAsset.balance}}</div>
       <div class="withdrawal">提现</div>
     </div>
   </div>
@@ -15,7 +15,19 @@
 export default {
   name: 'Wallet',
   data () {
-    return {}
+    return {
+      userId: '',
+      userAsset: ''
+    }
+  },
+  methods: {
+    getUserAsset () {
+      this.userAsset = JSON.parse(this.$route.query.asset)
+      this.userId = JSON.parse(this.$route.query.userId)
+    }
+  },
+  mounted () {
+    this.getUserAsset()
   }
 }
 </script>

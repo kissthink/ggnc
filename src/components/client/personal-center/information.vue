@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="user-wallet" @click="toTargetRouter('/wallet')">
+    <div class="user-wallet" @click="toWallet()">
       <div class="icon">
         <i class="fab fa-trello"></i>
       </div>
@@ -107,6 +107,10 @@ export default {
     },
     toTargetRouter (url) {
       this.$router.push(url)
+    },
+    toWallet () {
+      let queryData = {userId: this.user.id, asset: JSON.stringify(this.user.asset)}
+      this.$router.push({path: '/wallet', query: queryData})
     },
     registerNewMamber () {
       let queryData = {masterId: this.userId, masterName: this.userNickName}
