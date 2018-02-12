@@ -11,9 +11,9 @@ import PageNotFound from '@/components/PageNotFound'
 
 // client
 import Home from '@/components/client/Home'
-import Market from '@/components/client/Market'
 import Order from '@/components/client/Order'
-import Farm from '@/components/client/Farm'
+import Market from '@/components/client/market/Market'
+import Farm from '@/components/client/farm/Farm'
 
 import My from '@/components/client/personal-center/My'
 import Information from '@/components/client/personal-center/Information'
