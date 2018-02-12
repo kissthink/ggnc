@@ -74,6 +74,7 @@
 
 <script>
 import QrcodeVue from 'qrcode.vue'
+import axios from 'axios'
 import tokenService from '@/assets/js/tokenService'
 import clientService from '@/assets/js/clientService'
 
@@ -100,7 +101,7 @@ export default {
       clientService.getUserInfo(userId).then(res => {
         this.userId = res.id
         this.userNickName = res.nickName
-        this.codeUrl = `http://172.168.1.16:8080/new-mamber?masterId=${res.id}&masterName=${encodeURI(res.nickName)}`
+        this.codeUrl = `${axios.defaults.baseURL}new-mamber?masterId=${res.id}&masterName=${encodeURI(res.nickName)}`
         this.user = res
       })
     },
@@ -127,7 +128,7 @@ export default {
       this.$refs.codePic.show()
     }
   },
-  mounted () {
+  created () {
     this.getUserInfo()
   }
 }

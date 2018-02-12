@@ -51,7 +51,7 @@
 
 <script>
 import clientService from '@/assets/js/clientService'
-// import util from '@/assets/js/util'
+import util from '@/assets/js/util'
 export default {
   name: 'RealName',
   data () {
@@ -61,8 +61,8 @@ export default {
         realName: '',
         idCard: '',
         region: '',
-        wechatWithdrawCode: '',
-        alipayWithdrawCode: ''
+        wechatWithdrawCode: null,
+        alipayWithdrawCode: null
       },
       selectWechatWithdrawCode: '',
       selectAlipayWithdrawCode: '',
@@ -75,40 +75,60 @@ export default {
       this.modalShow = true
     },
     startSaveRealName () {
-      // if (!this.regRealName()) {
-      //   this.$message({message: '姓名和身份证号不能为空', type: 'error'})
-      //   return
-      // }
-      // if (!util.regIdCard(this.real.idCard)) {
-      //   this.$message({message: '请输入正确的身份证号', type: 'error'})
-      //   return
-      // }
+      if (this.regRealName()) {
+        this.$message({message: '姓名和身份证号不能为空', type: 'error'})
+        return
+      }
+      if (!util.regIdCard(this.real.idCard)) {
+        this.$message({message: '请输入正确的身份证号', type: 'error'})
+        return
+      }
       this.isSaving = true
       this.uploadWechatWithdrawCode()
     },
     uploadWechatWithdrawCode () {
-      clientService.uploadPic(this.selectWechatWithdrawCode).then(res => {
-        console.log(res)
-        // if (res.status > 200) {
-        //   this.$message({message: '微信收款码上传失败', type: 'error'})
-        // } else {
-        //   this.uploadAlipayWithdrawCode()
-        // }
-      })
+      if (this.selectWechatWithdrawCode) {
+        clientService.uploadPic(this.selectWechatWithdrawCode).then(res => {
+          if (res.status > 200) {
+            this.$message({message: '微信收款码上传失败', type: 'error'})
+            this.isSaving = false
+          } else {
+            this.real.wechatWithdrawCode = res.data.filePath
+            this.uploadAlipayWithdrawCode()
+          }
+        })
+      } else {
+        this.uploadAlipayWithdrawCode()
+      }
     },
     uploadAlipayWithdrawCode () {
-      clientService.uploadPic(this.selectAlipayWithdrawCode).then(res => {
-        console.log(res)
-        // if (res.status > 200) {
-        //   this.$message({message: '支付宝收款码上传失败', type: 'error'})
-        // } else {
-        //   this.saveRealName()
-        // }
-      })
+      if (this.selectAlipayWithdrawCode) {
+        clientService.uploadPic(this.selectAlipayWithdrawCode).then(res => {
+          if (res.status > 200) {
+            this.$message({message: '支付宝收款码上传失败', type: 'error'})
+            this.isSaving = false
+          } else {
+            this.real.alipayWithdrawCode = res.data.filePath
+            this.saveRealName()
+          }
+        })
+      } else {
+        this.saveRealName()
+      }
     },
     saveRealName () {
+      if (!(this.selectWechatWithdrawCode || this.selectAlipayWithdrawCode)) {
+        this.$message({message: '请至少上传一种收款码', type: 'error'})
+        return
+      }
       clientService.saveUserInfo(this.real).then(res => {
-        console.log(res)
+        this.isSaving = false
+        if (res.status > 200) {
+          this.$message({message: '认证失败', type: 'error'})
+        } else {
+          this.$message({message: '认证成功', type: 'success'})
+          this.$router.push('/my')
+        }
       })
     },
     regRealName () {
