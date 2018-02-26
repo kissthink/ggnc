@@ -1,17 +1,135 @@
 <template>
   <div>
     <h4 class="h4-title">我的农场</h4>
+
+    <div class="farm-wrap" v-if="user">
+      <div class="farm-button">
+        <div>
+          <button class="btn btn-primary btn-block btn-lg">
+            <i class="fas fa-arrow-left"></i> 孵化房
+          </button>
+        </div>
+        <div>
+          <button class="btn btn-primary btn-block btn-lg">
+            养鸡场 <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="farm-item">
+        <div class="product">
+          <p>种蛋</p>
+          <p class="product-num">{{user.asset.breedingEgg}}只</p>
+        </div>
+        <div @click="showNumInput('sellEggs')">
+          <p><img src="../../../assets/img/buy.png"></p>
+          <p>买入</p>
+        </div>
+        <div>
+          <p><img src="../../../assets/img/egg.png"></p>
+          <p>孵化</p>
+        </div>
+      </div>
+
+      <div class="farm-item">
+        <div class="product">
+          <p>种鸡</p>
+          <p class="product-num">{{user.asset.breedingHens}}只</p>
+        </div>
+        <div>
+          <p><img src="../../../assets/img/buy.png"></p>
+          <p>买入</p>
+        </div>
+        <div>
+          <p><img src="../../../assets/img/ji.png"></p>
+          <p>放养</p>
+        </div>
+      </div>
+
+      <div class="farm-item">
+        <div class="product">
+          <p>在孵蛋</p>
+          <p class="product-num">{{user.asset.hatchingEgg}}只</p>
+        </div>
+        <div>
+          <!-- <p><img src="../../../assets/img/buy.png"></p>
+          <p>买入</p> -->
+        </div>
+        <div>
+          <!-- <p><img src="../../../assets/img/fy.png"></p>
+          <p>卖出</p> -->
+        </div>
+      </div>
+
+      <div class="farm-item">
+        <div class="product">
+          <p>在养鸡</p>
+          <p class="product-num">{{user.asset.inHennery}}只</p>
+        </div>
+        <div>
+          <!-- <p><img src="../../../assets/img/buy.png"></p>
+          <p>买入</p> -->
+        </div>
+        <div>
+          <!-- <p><img src="../../../assets/img/fy.png"></p>
+          <p>卖出</p> -->
+        </div>
+      </div>
+
+      <div class="farm-item">
+        <div class="product">
+          <p>商品蛋</p>
+          <p class="product-num">{{user.asset.commodityEgg}}只</p>
+        </div>
+        <div>
+          <!-- <p><img src="../../../assets/img/buy.png"></p>
+          <p>买入</p> -->
+        </div>
+        <div>
+          <p><img src="../../../assets/img/fy.png"></p>
+          <p>卖出</p>
+        </div>
+      </div>
+
+      <div class="farm-item">
+        <div class="product">
+          <p>商品鸡</p>
+          <p class="product-num">{{user.asset.commodityChicken}}只</p>
+        </div>
+        <div>
+          <!-- <p><img src="../../../assets/img/buy.png"></p>
+          <p>买入</p> -->
+        </div>
+        <div>
+          <p><img src="../../../assets/img/fy.png"></p>
+          <p>卖出</p>
+        </div>
+      </div>
+    </div>
+
+    <b-modal ref="numInput" title="我的二维码" ok-title="确定" cancel-title="取消" @ok="saveNum()">
+      请输入数量：<input type="text" class="number-input" v-model="inputNumber">
+    </b-modal>
   </div>
 </template>
 
 <script>
 import tokenService from '@/assets/js/tokenService'
 import clientService from '@/assets/js/clientService'
+import util from '@/assets/js/util'
 export default {
   name: 'Fram',
   data () {
     return {
-      user: ''
+      user: undefined,
+      inputNumber: 0,
+      saveType: '',
+      order: {
+        userId: '',
+        commodityId: 1,
+        type: 'supply',
+        total: 0
+      }
     }
   },
   methods: {
@@ -19,7 +137,36 @@ export default {
       let userId = tokenService.decodeToken().id
       clientService.getUserInfo(userId).then(res => {
         this.user = res
-        console.log(res.asset)
+      })
+    },
+    showNumInput (clickType) {
+      this.$refs.numInput.show()
+      this.saveType = clickType
+    },
+    saveNum () {
+      if (!util.regInteger(this.inputNumber)) {
+        this.$message({message: '请输入正确的数量', type: 'error'})
+        return
+      }
+      this.order.total = this.inputNumber
+      switch (this.saveType) {
+        case 'sellEggs':
+          this.saveSellEggs()
+          break
+      }
+    },
+    saveSellEggs () { // 购买种蛋
+      this.order.userId = this.user.id
+      this.order.type = 'demand'
+      this.order.commodityId = 2
+      clientService.createOrder(this.order).then(res => {
+        if (res.status === 1005) {
+          this.$message({message: '余额不足', type: 'error'})
+        } else if (res.status > 200) {
+          this.$message({message: '余额失败', type: 'error'})
+        } else {
+          this.$message({message: '购买成功', type: 'success'})
+        }
       })
     }
   },
@@ -30,5 +177,47 @@ export default {
 </script>
 
 <style>
-
+  .farm-wrap {
+    margin-top: 1rem;
+  }
+  .farm-button {
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+  .farm-button div {
+    float: left;
+    padding: 0.5rem;
+    width: 50%;
+  }
+  .farm-item {
+    margin-bottom: 1rem;
+    padding: 0.8rem 1rem;
+    background: #fff;
+    overflow: hidden;
+  }
+  .farm-item > div {
+    float: left;
+    width: 33.33%;
+    text-align: center;
+    font-size: 16px;
+  }
+  .farm-item .product p {
+    font-size: 20px;
+  }
+  .farm-item p.product-num {
+    color: #ff5155;
+  }
+  .farm-item p img {
+    width: 3rem;
+    height: 3rem;
+  }
+  .number-input {
+    padding: 0.3rem;
+    height:26px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    outline: none;
+    border-radius: 3px;
+    vertical-align: middle;
+  }
 </style>
