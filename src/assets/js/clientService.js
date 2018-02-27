@@ -43,6 +43,48 @@ function createOrder (order) {
   })
 }
 
+// 添蛋到孵化房
+function hatchEggs (eggs) {
+  return axiosService.post(apiUrl.hatchSave, eggs).then(res => {
+    return res
+  })
+}
+
+// 获取孵化房列表
+function getHatchList (userId) {
+  return axiosService.get(apiUrl.hatchList, userId).then(res => {
+    return res.data.hatchRooms
+  })
+}
+
+// 获取孵化房列表
+function getInviterHatchList (userId) {
+  return axiosService.get(apiUrl.inviterHatchList, userId).then(res => {
+    return res.data.hatchRooms
+  })
+}
+
+// 签到加温
+function signInForSelf (user) {
+  return axiosService.patch(apiUrl.signInForSelf, user).then(res => {
+    return res
+  })
+}
+
+// 帮师傅签到加温
+function signInForInviter (user) {
+  return axiosService.patch(apiUrl.signInForInviter, user).then(res => {
+    return res
+  })
+}
+
+// 孵化记录
+function getHatched (userId) {
+  return axiosService.get(apiUrl.hatched, userId).then(res => {
+    return res.data.hatched
+  })
+}
+
 // 市场需求
 function orderDemand () {
   return axiosService.getAll(apiUrl.orderDemand).then(res => {
@@ -64,6 +106,12 @@ export default {
   saveUserInfo,
   getOrderList,
   createOrder,
+  hatchEggs,
+  getHatchList,
+  getInviterHatchList,
+  signInForSelf,
+  signInForInviter,
+  getHatched,
   orderDemand,
   orderSupply
 }

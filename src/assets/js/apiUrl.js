@@ -8,6 +8,12 @@ export default {
   orderDemand: 'app/order/demand', // 市场需求
   orderSupply: 'app/order/supply', // 市场供应
   orderSave: 'app/order/save', // 保存订单
+  hatchSave: 'app/hatch/save', // 添蛋到孵化房
+  hatchList: 'app/hatch/myList', // 孵化房列表
+  inviterHatchList: 'app/hatch/inviterList', // 师傅孵化房列表
+  signInForSelf: 'app/hatch/signInForSelf', // 签到加温
+  signInForInviter: 'app/hatch/signInForInviter', // 帮师傅签到加温
+  hatched: 'app/hatch/hatched', // 孵化记录
 
   adminLogin: 'api/user/login', // 后台登录
   userList: 'api/user/list', // 用户列表

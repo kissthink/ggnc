@@ -13,7 +13,12 @@ import PageNotFound from '@/components/PageNotFound'
 import Home from '@/components/client/Home'
 import Order from '@/components/client/Order'
 import Market from '@/components/client/market/Market'
+
 import Farm from '@/components/client/farm/Farm'
+import HatchRoom from '@/components/client/farm/HatchRoom'
+import InviterHatchRoom from '@/components/client/farm/InviterHatchRoom'
+import Hatched from '@/components/client/farm/Hatched'
+import chickenFarm from '@/components/client/farm/ChickenFarm'
 
 import My from '@/components/client/personal-center/My'
 import Information from '@/components/client/personal-center/Information'
@@ -67,6 +72,10 @@ let router = new Router({
     { path: '/chicken-detail', name: 'ChickenDetail', component: ChickenDetail, meta: { requiresAuth: true } }, // 养鸡明细
     { path: '/notice', name: 'Notice', component: Notice, meta: { requiresAuth: true } }, // 公告
     { path: '/edit-password', name: 'EditPassword', component: EditPassword, meta: { requiresAuth: true } }, // 修改密码
+    { path: '/hatch-room', name: 'HatchRoom', component: HatchRoom }, // 孵化房
+    { path: '/inviter-hatch-room', name: 'InviterHatchRoom', component: InviterHatchRoom }, // 师傅孵化房
+    { path: '/hatched', name: 'Hatched', component: Hatched }, // 孵化记录
+    { path: '/chicken-farm', name: 'chickenFarm', component: chickenFarm }, // 养鸡场
     // admin
     { path: '/admin',
       component: Admin,

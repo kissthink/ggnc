@@ -5,12 +5,12 @@
     <div class="farm-wrap" v-if="user">
       <div class="farm-button">
         <div>
-          <button class="btn btn-primary btn-block btn-lg">
+          <button class="btn btn-primary btn-block btn-lg" @click="goToTargetRouter('/hatch-room')">
             <i class="fas fa-arrow-left"></i> 孵化房
           </button>
         </div>
         <div>
-          <button class="btn btn-primary btn-block btn-lg">
+          <button class="btn btn-primary btn-block btn-lg" @click="goToTargetRouter('/chicken-farm')">
             养鸡场 <i class="fas fa-arrow-right"></i>
           </button>
         </div>
@@ -21,11 +21,11 @@
           <p>种蛋</p>
           <p class="product-num">{{user.asset.breedingEgg}}只</p>
         </div>
-        <div @click="showNumInput('sellEggs')">
+        <div @click="showNumInput('buyEggs')">
           <p><img src="../../../assets/img/buy.png"></p>
           <p>买入</p>
         </div>
-        <div>
+        <div @click="showNumInput('hatchEggs')">
           <p><img src="../../../assets/img/egg.png"></p>
           <p>孵化</p>
         </div>
@@ -36,7 +36,7 @@
           <p>种鸡</p>
           <p class="product-num">{{user.asset.breedingHens}}只</p>
         </div>
-        <div>
+        <div @click="showNumInput('buyChicken')">
           <p><img src="../../../assets/img/buy.png"></p>
           <p>买入</p>
         </div>
@@ -85,7 +85,7 @@
           <!-- <p><img src="../../../assets/img/buy.png"></p>
           <p>买入</p> -->
         </div>
-        <div>
+        <div @click="showNumInput('sellCommodityEggs')">
           <p><img src="../../../assets/img/fy.png"></p>
           <p>卖出</p>
         </div>
@@ -100,7 +100,7 @@
           <!-- <p><img src="../../../assets/img/buy.png"></p>
           <p>买入</p> -->
         </div>
-        <div>
+        <div @click="showNumInput('sellCommodityChicken')">
           <p><img src="../../../assets/img/fy.png"></p>
           <p>卖出</p>
         </div>
@@ -129,6 +129,10 @@ export default {
         commodityId: 1,
         type: 'supply',
         total: 0
+      },
+      hatch: {
+        userId: '',
+        total: 0
       }
     }
   },
@@ -139,6 +143,9 @@ export default {
         this.user = res
       })
     },
+    goToTargetRouter (url) {
+      this.$router.push({path: url, query: {userId: this.user.id}})
+    },
     showNumInput (clickType) {
       this.$refs.numInput.show()
       this.saveType = clickType
@@ -148,24 +155,88 @@ export default {
         this.$message({message: '请输入正确的数量', type: 'error'})
         return
       }
-      this.order.total = this.inputNumber
+      this.order.total = +this.inputNumber
+      this.order.userId = this.user.id
       switch (this.saveType) {
-        case 'sellEggs':
-          this.saveSellEggs()
+        case 'buyEggs':
+          this.saveBuyEggs()
+          break
+        case 'hatchEggs':
+          this.saveHatchEggs()
+          break
+        case 'buyChicken':
+          this.saveBuyChicken()
+          break
+        case 'sellCommodityEggs':
+          this.saveSellCommodityEggs()
+          break
+        case 'sellCommodityChicken':
+          this.saveSellCommodityChicken()
           break
       }
     },
-    saveSellEggs () { // 购买种蛋
-      this.order.userId = this.user.id
+    saveBuyEggs () { // 购买种蛋
       this.order.type = 'demand'
       this.order.commodityId = 2
       clientService.createOrder(this.order).then(res => {
-        if (res.status === 1005) {
-          this.$message({message: '余额不足', type: 'error'})
-        } else if (res.status > 200) {
-          this.$message({message: '余额失败', type: 'error'})
-        } else {
+        if (res.status === 200) {
           this.$message({message: '购买成功', type: 'success'})
+          this.inputNumber = 0
+          this.getUserInfo()
+        } else {
+          this.$message({message: res.message, type: 'error'})
+        }
+      })
+    },
+    saveHatchEggs () { // 添蛋到孵化房
+      this.hatch.total = +this.inputNumber
+      this.hatch.userId = this.user.id
+      clientService.hatchEggs(this.hatch).then(res => {
+        if (res.status === 200) {
+          this.$message({message: '添蛋到孵化房成功', type: 'success'})
+          this.inputNumber = 0
+          this.getUserInfo()
+        } else {
+          this.$message({message: res.message, type: 'error'})
+        }
+      })
+    },
+    saveBuyChicken () { // 购买种鸡
+      this.order.type = 'demand'
+      this.order.commodityId = 1
+      clientService.createOrder(this.order).then(res => {
+        if (res.status === 200) {
+          this.$message({message: '购买成功', type: 'success'})
+          this.inputNumber = 0
+          this.getUserInfo()
+        } else {
+          this.$message({message: res.message, type: 'error'})
+        }
+      })
+    },
+    saveSellCommodityEggs () { // 出售商品蛋
+      this.order.type = 'supply'
+      this.order.commodityId = 2
+      clientService.createOrder(this.order).then(res => {
+        if (res.status === 200) {
+          this.$message({message: '出售成功', type: 'success'})
+          this.inputNumber = 0
+          this.getUserInfo()
+        } else {
+          this.$message({message: res.message, type: 'error'})
+        }
+      })
+    },
+    saveSellCommodityChicken () { // 出售商品鸡
+      this.order.type = 'supply'
+      this.order.commodityId = 1
+      clientService.createOrder(this.order).then(res => {
+        if (res.status === 200) {
+          this.$message({message: '出售成功', type: 'success'})
+          this.inputNumber = 0
+          this.getUserInfo()
+        } else {
+          this.$message({message: res.message, type: 'error'})
         }
       })
     }
