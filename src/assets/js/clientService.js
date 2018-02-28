@@ -99,6 +99,19 @@ function orderSupply () {
   })
 }
 
+// 获取公告列表
+function getNoticeList () {
+  return axiosService.getAll(apiUrl.noticeList).then(res => {
+    return res.data.noticeList
+  })
+}
+
+function changePassword (userPassword) {
+  return axiosService.post(apiUrl.changePassword, userPassword).then(res => {
+    return res
+  })
+}
+
 export default {
   getUserInfo,
   registerUser,
@@ -113,5 +126,7 @@ export default {
   signInForInviter,
   getHatched,
   orderDemand,
-  orderSupply
+  orderSupply,
+  getNoticeList,
+  changePassword
 }

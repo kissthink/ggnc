@@ -15,6 +15,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import BackHistory from './components/shared/backHistory'
 import AmountSelect from './components/shared/amountSelect'
 
+// filter.js
+import filter from './assets/js/filter.js'
+
 Vue.config.productionTip = false
 Vue.use(BootstrapVue, axios)
 Vue.use(ElementUI)
@@ -23,6 +26,10 @@ Vue.use(VueJWT)
 // use components for global
 Vue.component('back-history', BackHistory)
 Vue.component('amount-select', AmountSelect)
+
+// defined filter for global
+Vue.filter('transformTime', filter.transformTime)
+Vue.filter('businessType', filter.transformBusinessType)
 
 /* eslint-disable no-new */
 new Vue({

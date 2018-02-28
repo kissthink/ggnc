@@ -14,6 +14,8 @@ export default {
   signInForSelf: 'app/hatch/signInForSelf', // 签到加温
   signInForInviter: 'app/hatch/signInForInviter', // 帮师傅签到加温
   hatched: 'app/hatch/hatched', // 孵化记录
+  noticeList: 'app/notice/list', // 公告列表
+  changePassword: 'app/user/changePassword', // 修改密码
 
   adminLogin: 'api/user/login', // 后台登录
   userList: 'api/user/list', // 用户列表

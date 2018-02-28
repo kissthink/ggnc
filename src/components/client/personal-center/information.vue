@@ -10,9 +10,6 @@
         <p>{{user.nickName}}</p>
         <p class="user-mobile">手机号: {{user.mobile}}</p>
       </div>
-      <div class="user-code" @click.stop="showCodePic()">
-        <i class="fas fa-qrcode"></i>
-      </div>
     </div>
 
     <div class="user-wallet" @click="toWallet()">
@@ -23,11 +20,18 @@
     </div>
 
     <div class="other">
-      <div class="other-item" @click.stop="registerNewMamber()">
+      <div class="other-item" @click.stop="toTargetRouter('/notice')">
+        <div class="icon">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <span>系统公告</span>
+      </div>
+
+      <div class="other-item" @click.stop="invitingNewMenber()">
         <div class="icon">
           <i class="fas fa-male"></i>
         </div>
-        <span>注册新会员</span>
+        <span>邀请新会员</span>
       </div>
 
       <div class="other-item" v-if="!user.userInfo" @click.stop="realName()">
@@ -50,58 +54,32 @@
         </div>
         <span>养鸡明细</span>
       </div>
-
-      <div class="other-item" @click.stop="toTargetRouter('/notice')">
-        <div class="icon">
-          <i class="fas fa-bullhorn"></i>
-        </div>
-        <span>系统公告</span>
-      </div>
     </div>
 
-    <div class="edit-pw" @click="toTargetRouter('/edit-password')">
+    <div class="edit-pw" @click="editPassword()">
       <div class="icon">
         <i class="fas fa-lock"></i>
       </div>
       <span>修改密码</span>
     </div>
-
-    <b-modal ref="codePic" hide-footer title="我的二维码">
-      <qrcode-vue :value="codeUrl" :size="codeSize" level="L" className="qrcode"></qrcode-vue>
-    </b-modal>
   </div>
 </template>
 
 <script>
-import QrcodeVue from 'qrcode.vue'
-import axios from 'axios'
 import tokenService from '@/assets/js/tokenService'
 import clientService from '@/assets/js/clientService'
 
 export default {
   name: 'Information',
-  components: {
-    QrcodeVue
-  },
   data () {
     return {
-      codeUrl: '',
-      codeSize: 300,
-      user: '',
-      userId: '',
-      userNickName: ''
+      user: ''
     }
-  },
-  computed: {
-
   },
   methods: {
     getUserInfo () {
       let userId = tokenService.decodeToken().id
       clientService.getUserInfo(userId).then(res => {
-        this.userId = res.id
-        this.userNickName = res.nickName
-        this.codeUrl = `${axios.defaults.baseURL}new-mamber?masterId=${res.id}&masterName=${encodeURI(res.nickName)}`
         this.user = res
       })
     },
@@ -112,9 +90,9 @@ export default {
       let queryData = {userId: this.user.id, asset: JSON.stringify(this.user.asset)}
       this.$router.push({path: '/wallet', query: queryData})
     },
-    registerNewMamber () {
-      let queryData = {masterId: this.userId, masterName: this.userNickName}
-      this.$router.push({path: '/new-mamber', query: queryData})
+    invitingNewMenber () {
+      let queryData = {userId: this.user.id}
+      this.$router.push({path: '/inviting-new-mamber', query: queryData})
     },
     realName () {
       let queryData = {userId: this.user.id}
@@ -128,8 +106,9 @@ export default {
       let queryData = {asset: JSON.stringify(this.user.asset)}
       this.$router.push({path: '/chicken-detail', query: queryData})
     },
-    showCodePic () {
-      this.$refs.codePic.show()
+    editPassword () {
+      let queryData = {userId: this.user.id}
+      this.$router.push({path: '/edit-password', query: queryData})
     }
   },
   created () {

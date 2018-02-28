@@ -16,16 +16,16 @@ export default {
   methods: {
     getOrderDemand () {
       clientService.orderDemand().then(res => {
-        console.log(res)
+        console.log('orderDemand=====>>', res)
       })
     },
     getOrderSupply () {
       clientService.orderSupply().then(res => {
-        console.log(res)
+        console.log('orderSupply=====>>', res)
       })
     }
   },
-  created () {
+  mounted () {
     this.getOrderSupply()
     this.getOrderDemand()
   }

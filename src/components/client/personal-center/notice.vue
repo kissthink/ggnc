@@ -3,20 +3,12 @@
     <h4 class="h4-title">系统公告</h4>
     <back-history></back-history>
 
-    <div class="notice-list">
-      <div class="notice-item">
-        <h5 class="notice-name">第一个系统公告</h5>
-        <p class="notice-time">2018-02-01 11:00</p>
+    <div class="notice-list" v-if="noticeList.length > 0">
+      <div class="notice-item" v-for="notice of noticeList" :key="notice.id">
+        <h5 class="notice-name">{{notice.title}}</h5>
+        <p class="notice-time">{{notice.createTime | transformTime}}</p>
         <div class="notice-content">
-          第一个系统公告已经发布了，请知悉！
-        </div>
-      </div>
-
-      <div class="notice-item">
-        <h5 class="notice-name">第二个系统公告</h5>
-        <p class="notice-time">2018-02-01 11:10</p>
-        <div class="notice-content">
-          第二个系统公告已经发布了，请知悉！
+          {{notice.content}}
         </div>
       </div>
     </div>
@@ -24,10 +16,23 @@
 </template>
 
 <script>
+import clientService from '@/assets/js/clientService'
 export default {
   name: 'Notice',
   data () {
-    return {}
+    return {
+      noticeList: []
+    }
+  },
+  methods: {
+    getNoticeList () {
+      clientService.getNoticeList().then(res => {
+        this.noticeList = res
+      })
+    }
+  },
+  created () {
+    this.getNoticeList()
   }
 }
 </script>
@@ -41,7 +46,7 @@ export default {
   }
   .notice-list .notice-item {
     margin-bottom: 1rem;
-    padding: .5rem;
+    padding: .8rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: center;
@@ -60,5 +65,6 @@ export default {
   .notice-item .notice-content {
     margin-top: .5rem;
     text-align: left;
+    text-indent: 24px;
   }
 </style>

@@ -107,7 +107,7 @@
       </div>
     </div>
 
-    <b-modal ref="numInput" title="我的二维码" ok-title="确定" cancel-title="取消" @ok="saveNum()">
+    <b-modal ref="numInput" title="请输入数量" ok-title="确定" cancel-title="取消" @ok="saveNum()">
       请输入数量：<input type="text" class="number-input" v-model="inputNumber">
     </b-modal>
   </div>

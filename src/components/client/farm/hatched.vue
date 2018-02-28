@@ -6,8 +6,8 @@
     <div class="hatched-list">
       <div class="hatched-item" v-for="hatched of hatcheds" :key="hatched.id">
         <div class="hatched-time">
-          <span>开始时间：{{hatched.startDate}}</span>
-          <span>结束时间：{{hatched.endDate}}</span>
+          <span>开始时间：{{hatched.startDate | transformTime}}</span>
+          <span>结束时间：{{hatched.endDate | transformTime}}</span>
         </div>
         <div class="hatched-content">
           <span>孵蛋数：{{hatched.total}}</span>
