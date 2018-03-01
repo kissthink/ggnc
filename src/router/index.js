@@ -42,7 +42,8 @@ import PropsList from '@/components/admin/props/PropsList'
 import PropsDetail from '@/components/admin/props/PropsDetail'
 import OrdersList from '@/components/admin/OrdersList'
 import OperationLogs from '@/components/admin/OperationLogs'
-import NoticeManagement from '@/components/admin/NoticeManagement'
+import NoticeManagement from '@/components/admin/noticeManagement/NoticeManagement'
+import NoticeDetail from '@/components/admin/noticeManagement/NoticeDetail'
 
 Vue.use(Router)
 
@@ -90,9 +91,11 @@ let router = new Router({
         { path: 'orders-list', name: 'OrdersList', component: OrdersList },
         { path: 'operation-logs', name: 'OperationLogs', component: OperationLogs },
         { path: 'notice-management', name: 'NoticeManagement', component: NoticeManagement },
+        { path: 'new-notice', name: 'NoticeDetail', component: NoticeDetail },
         { path: 'client-detail/:id', name: 'ClientDetail', component: ClientDetail },
         { path: 'goods-detail/:id', name: 'GoodsDetail', component: GoodsDetail },
-        { path: 'props-detail/:id', name: 'PropsDetail', component: PropsDetail }
+        { path: 'props-detail/:id', name: 'PropsDetail', component: PropsDetail },
+        { path: 'notice-detail/:id', component: NoticeDetail }
       ]
     },
     // 404

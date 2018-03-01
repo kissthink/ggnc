@@ -12,7 +12,6 @@
 
 <script>
 import QrcodeVue from 'qrcode.vue'
-import axios from 'axios'
 import clientService from '@/assets/js/clientService'
 export default {
   name: 'InvitingNewMember',
@@ -21,7 +20,6 @@ export default {
   },
   data () {
     return {
-      baseUrl: axios.defaults.baseURL,
       codeUrl: '',
       codeSize: 218
     }
@@ -30,7 +28,7 @@ export default {
     getUserDetail () {
       let id = +this.$route.query.userId
       clientService.getUserInfo(id).then(res => {
-        this.codeUrl = `${this.baseUrl}new-mamber?masterId=${id}&masterName=${encodeURI(res.nickName)}`
+        this.codeUrl = `http://${location.host}/new-mamber?masterId=${id}&masterName=${encodeURI(res.nickName)}`
       })
     }
   },

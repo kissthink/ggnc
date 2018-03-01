@@ -3,23 +3,27 @@
     <h4 class="h4-title">我的订单</h4>
 
     <div class="order-list">
-      <div class="order-list-header">
-        <span class="order-time">时间</span>
-        <span>商品</span>
-        <span>类型</span>
-        <span>总数</span>
-        <span>成交数</span>
-      </div>
-      <div class="order-list-content" v-if="orders.length > 0">
-        <div class="order-list-item" v-for="order of orders" :key="order.id">
-          <span class="order-time">{{order.createTime | transformTime}}</span>
-          <span>{{order.commodity.name}}</span>
-          <span>{{order.type | businessType}}</span>
-          <span>{{order.total}}</span>
-          <span>{{order.traded}}</span>
-        </div>
-      </div>
-      <div class="order-list-tip" v-if="orders.length == 0">没有订单数据</div>
+      <table class="table table-hover">
+        <thead class="table-active">
+          <th>时间</th>
+          <th>商品</th>
+          <th>类型</th>
+          <th>成交数/总数</th>
+          <th>状态</th>
+        </thead>
+        <tbody v-if="orders.length > 0">
+          <tr v-for="order of orders" :key="order.id">
+            <td>{{order.createTime | transformTime}}</td>
+            <td>{{order.commodity.name}}</td>
+            <td>{{order.type | businessType}}</td>
+            <td>{{order.traded}}/{{order.total}}</td>
+            <td>{{order.status | orderStatus}}</td>
+          </tr>
+          <tr v-if="orders.length === 0">
+            <td colspan="5" class="text-center">没有订单数据</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -50,43 +54,6 @@ export default {
 
 <style>
   .order-list {
-    margin: 1rem;
-    padding: 4rem 1rem 1rem;
-    max-height: 53.9rem;
-    background: #fff;
-    position: relative;
-    overflow: scroll;
-  }
-  .order-list .order-list-header {
-    position: absolute;
-    top: 0;
-    left: .5rem;
-    right: .5rem;
-    font-size: 0;
-    border-bottom: 1px solid #ccc;
-  }
-  .order-list .order-list-item {
-    font-size: 0;
-  }
-  .order-list .order-list-header span,
-  .order-list .order-list-item span {
-    display: inline-block;
-    width: 17.5%;
-    height: 3rem;
-    line-height: 3rem;
-    font-size: 14px;
-    text-align: center;
-  }
-  .order-list .order-list-item span {
-    font-size: 12px;
-  }
-  .order-list .order-list-header span.order-time,
-  .order-list .order-list-item span.order-time {
-    width: 30%;
-  }
-  .order-list .order-list-tip {
-    text-align: center;
-    font-size: 12px;
-    color: #999;
+    padding: 1rem;
   }
 </style>

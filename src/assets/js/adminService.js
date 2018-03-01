@@ -141,6 +141,34 @@ function updatePropsDetail (props) {
   })
 }
 
+// 获取公告列表
+function getNoticeList () {
+  return axiosService.getAll(apiUrl.noticeListManagement).then(res => {
+    return res.data.noticeList
+  })
+}
+
+// 获取公告详情
+function getNoticeDetail (id) {
+  return axiosService.get(apiUrl.noticeDetail, id).then(res => {
+    return res.data.notice
+  })
+}
+
+// 发布公告
+function releaseNotice (notice) {
+  return axiosService.post(apiUrl.saveNotice, notice).then(res => {
+    return res
+  })
+}
+
+// 删除公告
+function deleteNotice (notice) {
+  return axiosService.del(apiUrl.deleteNotice, notice.id).then(res => {
+    return res
+  })
+}
+
 export default {
   getUserList,
   switchUserEnable,
@@ -161,5 +189,9 @@ export default {
   updateGoodsDetail,
   getPropsList,
   getPropsDetail,
-  updatePropsDetail
+  updatePropsDetail,
+  getNoticeList,
+  getNoticeDetail,
+  releaseNotice,
+  deleteNotice
 }

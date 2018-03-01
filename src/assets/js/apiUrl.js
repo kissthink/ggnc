@@ -37,5 +37,9 @@ export default {
   updateGoodsDetail: 'api/commodity/update', // 修改商品信息
   propsList: 'api/prop/list', // 道具列表
   propsDetail: 'api/prop/detail', // 道具详情
-  propsUpdate: 'api/prop/update' // 修改道具信息
+  propsUpdate: 'api/prop/update', // 修改道具信息
+  noticeListManagement: 'api/notice/list', // 获取公告列表
+  noticeDetail: 'api/notice/detail', // 获取公告详情
+  saveNotice: 'api/notice/save', // 发布公告
+  deleteNotice: 'api/notice/delete' // 删除公告
 }

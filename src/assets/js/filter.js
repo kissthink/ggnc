@@ -22,7 +22,25 @@ function transformBusinessType (value) {
   return businessType
 }
 
+// 转换订单交易状态
+function transformOrderStatus (value) {
+  let status = ''
+  switch (value) {
+    case 0:
+      status = '交易中'
+      break
+    case 1:
+      status = '已完成'
+      break
+    case 2:
+      status = '已过期'
+      break
+  }
+  return status
+}
+
 export default {
   transformTime,
-  transformBusinessType
+  transformBusinessType,
+  transformOrderStatus
 }

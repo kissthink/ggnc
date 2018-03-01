@@ -30,6 +30,7 @@ Vue.component('amount-select', AmountSelect)
 // defined filter for global
 Vue.filter('transformTime', filter.transformTime)
 Vue.filter('businessType', filter.transformBusinessType)
+Vue.filter('orderStatus', filter.transformOrderStatus)
 
 /* eslint-disable no-new */
 new Vue({
