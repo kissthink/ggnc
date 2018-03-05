@@ -1,8 +1,7 @@
 <template>
   <div class="login-wrap">
-    <h1>咕咕农场</h1>
-
     <div class="login-form">
+      <h1>咕咕农场</h1>
       <b-form>
         <b-form-group horizontal
                 :label-cols="4"
@@ -75,6 +74,7 @@ export default {
         } else {
           this.$message({message: `欢迎回来`, type: 'success'})
           localStorage.setItem('USER_TOKEN', res.data.data.token)
+          axios.defaults.headers.common['Authorization'] = res.data.data.token
           this.$router.push('/my')
         }
       })
@@ -97,7 +97,7 @@ export default {
     }
   }
   .login-wrap h1 {
-    margin-top: 3rem;
+    margin-bottom: 3rem;
     text-align: center;
     color: #f8f9fa;
   }

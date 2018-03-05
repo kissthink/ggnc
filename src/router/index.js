@@ -41,7 +41,7 @@ import GoodsDetail from '@/components/admin/goods/GoodsDetail'
 import PropsList from '@/components/admin/props/PropsList'
 import PropsDetail from '@/components/admin/props/PropsDetail'
 import OrdersList from '@/components/admin/OrdersList'
-import OperationLogs from '@/components/admin/OperationLogs'
+import OperationLogs from '@/components/admin/operationLogs/OperationLogs'
 import NoticeManagement from '@/components/admin/noticeManagement/NoticeManagement'
 import NoticeDetail from '@/components/admin/noticeManagement/NoticeDetail'
 

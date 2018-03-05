@@ -109,4 +109,10 @@ export default {
     border: 1px solid #ccc;
     border-top: none;
   }
+  .navbar-brand {
+    font-size: 16px;
+  }
+  .dropdown-item {
+    font-size: 16px;
+  }
 </style>

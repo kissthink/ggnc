@@ -33,39 +33,6 @@
           <b-form-select class="mt-2" v-if="selectedProvince" v-model="selectedCity" :options="provinceOptions" />
         </b-form-group>
 
-        <div class="form-title">实名认证</div>
-        <b-form-group id="name"
-                    label="真实姓名："
-                    label-for="name">
-          <b-form-input id="name"
-                        type="text"
-                        required
-                        placeholder="请输入姓名">
-          </b-form-input>
-        </b-form-group>
-
-        <b-form-group id="idCode"
-                    label="身份证号："
-                    label-for="idCode">
-          <b-form-input id="idCode"
-                        type="number"
-                        required
-                        placeholder="请输入身份证号">
-          </b-form-input>
-        </b-form-group>
-
-        <b-form-group id="weChatCode"
-                    label="微信收款码："
-                    label-for="weChatCode">
-          <b-form-file id="weChatCode" placeholder="请选择微信收款码"></b-form-file>
-        </b-form-group>
-
-        <b-form-group id="alipayCode"
-                    label="支付宝收款码："
-                    label-for="alipayCode">
-          <b-form-file id="alipayCode" placeholder="请选择支付宝收款码"></b-form-file>
-        </b-form-group>
-
         <button class="btn btn-block btn-info mb-3">保存</button>
         <button class="btn btn-block btn-default" @click.prevent="cancelForm()">取消</button>
       </b-form>

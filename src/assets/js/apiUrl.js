@@ -1,5 +1,5 @@
 export default {
-  userLogin: 'app/user/login', // 客户端登录
+  userLogin: 'login/app', // 客户端登录
   userInfo: 'app/user/detail', // 用户信息
   userRegister: 'app/user/register', // 注册用户
   uplocdWithdrawCode: 'app/userInfo/uploadWithdrawCode', // 上传收款码
@@ -17,7 +17,7 @@ export default {
   noticeList: 'app/notice/list', // 公告列表
   changePassword: 'app/user/changePassword', // 修改密码
 
-  adminLogin: 'api/user/login', // 后台登录
+  adminLogin: 'login/api', // 后台登录
   userList: 'api/user/list', // 用户列表
   userSwitch: 'api/user/switch', // 禁用、启用用户
   userSwitchAsset: 'api/user/switchAsset', // 冻结、解冻余额
@@ -41,5 +41,15 @@ export default {
   noticeListManagement: 'api/notice/list', // 获取公告列表
   noticeDetail: 'api/notice/detail', // 获取公告详情
   saveNotice: 'api/notice/save', // 发布公告
-  deleteNotice: 'api/notice/delete' // 删除公告
+  deleteNotice: 'api/notice/delete', // 删除公告
+  balanceTopUpOperationLog: 'api/operationLog/list/0', // 充值余额日志列表
+  balanceWithdrawOperationLog: 'api/operationLog/list/1', // 余额提现日志列表
+  breedingEggTopUpOperationLog: 'api/operationLog/list/2', // 充值种蛋日志列表
+  breedingEggWithdrawOperationLog: 'api/operationLog/list/3', // 种蛋提现日志列表
+  breedingHensTopUpOperationLog: 'api/operationLog/list/4', // 充值种鸡日志列表
+  breedingHensWithdrawOperationLog: 'api/operationLog/list/5', // 种鸡提现日志列表
+  commodityEggTopUpOperationLog: 'api/operationLog/list/6', // 充值商品蛋日志列表
+  commodityEggWithdrawOperationLog: 'api/operationLog/list/7', // 商品蛋提现日志列表
+  commodityChickenTopUpOperationLog: 'api/operationLog/list/8', // 充值商品鸡日志列表
+  commodityChickenWithdrawOperationLog: 'api/operationLog/list/9' // 商品鸡提现日志列表
 }

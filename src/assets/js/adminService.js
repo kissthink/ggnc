@@ -169,6 +169,76 @@ function deleteNotice (notice) {
   })
 }
 
+// 获取余额充值日志列表
+function getBalanceTopUpLog (page) {
+  return axiosService.get(apiUrl.balanceTopUpOperationLog, page).then(res => {
+    return res
+  })
+}
+
+// 获取余额提现日志列表
+function getBalanceWithdrawLog (page) {
+  return axiosService.get(apiUrl.balanceWithdrawOperationLog, page).then(res => {
+    return res
+  })
+}
+
+// 获取种蛋充值日志列表
+function getBreedingEggTopUpLog (page) {
+  return axiosService.get(apiUrl.breedingEggTopUpOperationLog, page).then(res => {
+    return res
+  })
+}
+
+// 获取种蛋提现日志列表
+function getBreedingEggWithdrawLog (page) {
+  return axiosService.get(apiUrl.breedingEggWithdrawOperationLog, page).then(res => {
+    return res
+  })
+}
+
+// 获取种鸡充值日志列表
+function getBreedingHensTopUpLog (page) {
+  return axiosService.get(apiUrl.breedingHensTopUpOperationLog, page).then(res => {
+    return res
+  })
+}
+
+// 获取种鸡提现日志列表
+function getBreedingHensWithdrawLog (page) {
+  return axiosService.get(apiUrl.breedingHensWithdrawOperationLog, page).then(res => {
+    return res
+  })
+}
+
+// 获取商品蛋充值日志列表
+function getCommodityEggTopUpLog (page) {
+  return axiosService.get(apiUrl.commodityEggTopUpOperationLog, page).then(res => {
+    return res
+  })
+}
+
+// 获取商品蛋提现日志列表
+function getCommodityEggWithdrawLog (page) {
+  return axiosService.get(apiUrl.commodityEggWithdrawOperationLog, page).then(res => {
+    return res
+  })
+}
+
+// 获取商品鸡充值日志列表
+function getCommodityChickenTopUpLog (page) {
+  return axiosService.get(apiUrl.commodityChickenTopUpOperationLog, page).then(res => {
+    return res
+  })
+}
+
+// 获取商品鸡提现日志列表
+function getCommodityChickenWithdrawLog (page) {
+  return axiosService.get(apiUrl.commodityChickenWithdrawOperationLog, page).then(res => {
+    return res
+  })
+}
+
 export default {
   getUserList,
   switchUserEnable,
@@ -193,5 +263,15 @@ export default {
   getNoticeList,
   getNoticeDetail,
   releaseNotice,
-  deleteNotice
+  deleteNotice,
+  getBalanceTopUpLog,
+  getBalanceWithdrawLog,
+  getBreedingEggTopUpLog,
+  getBreedingEggWithdrawLog,
+  getBreedingHensTopUpLog,
+  getBreedingHensWithdrawLog,
+  getCommodityEggTopUpLog,
+  getCommodityEggWithdrawLog,
+  getCommodityChickenTopUpLog,
+  getCommodityChickenWithdrawLog
 }

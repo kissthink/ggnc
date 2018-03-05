@@ -56,6 +56,7 @@ export default {
         } else {
           this.$message({message: '登录成功', type: 'success'})
           localStorage.setItem('USER_TOKEN', res.data.data.token)
+          axios.defaults.headers.common['Authorization'] = res.data.data.token
           this.$router.push('/admin')
         }
       }).catch(error => {

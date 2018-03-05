@@ -106,6 +106,7 @@ function getNoticeList () {
   })
 }
 
+// 修改密码
 function changePassword (userPassword) {
   return axiosService.post(apiUrl.changePassword, userPassword).then(res => {
     return res

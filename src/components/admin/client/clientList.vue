@@ -62,10 +62,10 @@ export default {
         if (res.status > 200) {
           this.$message({message: `禁用/启用用户“${user.nickName}”失败`, type: 'success'})
         } else {
-          if (!res) {
-            this.$message({message: `成功禁用用户“${user.nickName}”`, type: 'success'})
+          if (!res.data.enable) {
+            this.$message({message: `已禁用用户“${user.nickName}”`, type: 'success'})
           } else {
-            this.$message({message: `成功启用用户“${user.nickName}”`, type: 'success'})
+            this.$message({message: `已启用用户“${user.nickName}”`, type: 'success'})
           }
         }
       })

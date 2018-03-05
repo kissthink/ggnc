@@ -8,7 +8,7 @@
         <th>名称</th>
         <th>价格</th>
       </thead>
-      <tbody>
+      <tbody v-if="propsList.length > 0">
         <tr v-for="props of propsList" :key="props.id">
           <td>{{props.id}}</td>
           <td><a href="jvascript:void(0);" @click="selectProps(props)">{{props.name}}</a></td>
@@ -25,7 +25,7 @@ export default {
   name: 'PropsList',
   data () {
     return {
-      propsList: ''
+      propsList: []
     }
   },
   methods: {

@@ -1,0 +1,5 @@
+# changqi/web:dev
+FROM changqi/web:base
+LABEL maintainer="chad@suancloud.cn"
+
+RUN ln -s /usr/src/app/node_modules/karma/bin/karma /usr/local/bin/karma
