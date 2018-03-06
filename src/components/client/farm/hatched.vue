@@ -51,6 +51,7 @@ export default {
     padding: 1rem;
   }
   .hatched-item {
+    margin-bottom: 1rem;
     padding: .5rem;
     font-size: 0;
     background: #fff;

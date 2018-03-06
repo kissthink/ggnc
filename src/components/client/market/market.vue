@@ -3,7 +3,7 @@
     <h4 class="h4-title">市场</h4>
 
     <div class="tab-wrap">
-      <el-tabs value="supply" @tab-click="handleClick()">
+      <el-tabs value="supply" @tab-click="handleClick($event)">
         <el-tab-pane label="市场供应" name="supply">
           <table class="table table-hover">
             <thead class="table-active">

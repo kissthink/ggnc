@@ -4,13 +4,13 @@
     <back-history></back-history>
 
     <div class="sign-in">
-      <button class="btn btn-danger" @click="signIn()">
+      <button class="btn btn-danger btn-lg" @click="signIn()">
         <i class="fas fa-thermometer-half"></i> {{signInButtonTitle}}
       </button>
-      <button class="btn btn-primary" @click="inviterHatchRoom()">
+      <button class="btn btn-primary btn-lg" @click="inviterHatchRoom()">
         <i class="fas fa-home"></i> 师傅的孵化房
       </button>
-      <button class="btn btn-info record" @click="gotoHatched()">孵化记录</button>
+      <button class="btn btn-info btn-lg record" @click="gotoHatched()">孵化记录</button>
     </div>
 
     <div class="hatch-room-list" v-if="hatchRooms.length > 0">

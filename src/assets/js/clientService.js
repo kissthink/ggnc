@@ -113,6 +113,76 @@ function changePassword (userPassword) {
   })
 }
 
+// 放鸡到养鸡场
+function saveHennery (hennery) {
+  return axiosService.post(apiUrl.hennerySave, hennery).then(res => {
+    return res
+  })
+}
+
+// 获取在养鸡列表
+function getInHenneryList () {
+  return axiosService.getAll(apiUrl.inHennery).then(res => {
+    return res.data.henneries
+  })
+}
+
+// 喂养一批鸡
+function feedHennery (henneryId) {
+  return axiosService.get(apiUrl.feedHennery, henneryId).then(res => {
+    return res
+  })
+}
+
+// 喂养全部鸡
+function feedAllHennery () {
+  return axiosService.getAll(apiUrl.feedAllHennery).then(res => {
+    return res
+  })
+}
+
+// 获取粮仓信息
+function getUserGranary () {
+  return axiosService.getAll(apiUrl.userGranary).then(res => {
+    return res.data.granary
+  })
+}
+
+// 获取鸡粮详情
+function getGrainDetail () {
+  return axiosService.getAll(apiUrl.grainDetail).then(res => {
+    return res.data.grain
+  })
+}
+
+// 获取急救包详情
+function getAidkitDetail () {
+  return axiosService.getAll(apiUrl.aidkitDetail).then(res => {
+    return res.data.aidKit
+  })
+}
+
+// 购买鸡粮
+function buyGrain (number) {
+  return axiosService.post(apiUrl.buyGrain, number).then(res => {
+    return res
+  })
+}
+
+// 购买急救包
+function buyAidKit (number) {
+  return axiosService.post(apiUrl.buyAidKit, number).then(res => {
+    return res
+  })
+}
+
+// 获取收获列表
+function getHarvestList () {
+  return axiosService.getAll(apiUrl.henneryList).then(res => {
+    return res.data.history
+  })
+}
+
 export default {
   getUserInfo,
   registerUser,
@@ -129,5 +199,15 @@ export default {
   orderDemand,
   orderSupply,
   getNoticeList,
-  changePassword
+  changePassword,
+  saveHennery,
+  getInHenneryList,
+  feedHennery,
+  feedAllHennery,
+  getUserGranary,
+  buyGrain,
+  buyAidKit,
+  getHarvestList,
+  getGrainDetail,
+  getAidkitDetail
 }

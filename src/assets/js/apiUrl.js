@@ -16,6 +16,16 @@ export default {
   hatched: 'app/hatch/hatched', // 孵化记录
   noticeList: 'app/notice/list', // 公告列表
   changePassword: 'app/user/changePassword', // 修改密码
+  hennerySave: 'app/hennery/save', // 放鸡到养鸡场
+  inHennery: 'app/hennery/inHennery', // 在养鸡列表
+  feedHennery: 'app/hennery/feed', // 喂养某一批鸡
+  feedAllHennery: 'app/hennery/oneKeyFeed', // 喂养全部鸡
+  userGranary: 'app/user/granary', // 获取粮仓信息
+  buyGrain: 'app/prop/buyGrain', // 购买鸡粮
+  buyAidKit: 'app/prop/buyAidKit', // 购买急救包
+  henneryList: 'app/hennery/history', // 收获列表
+  aidkitDetail: 'app/prop/detail/aidKit', // 急救包详情
+  grainDetail: 'app/prop/detail/grain', // 鸡粮详情
 
   adminLogin: 'login/api', // 后台登录
   userList: 'api/user/list', // 用户列表

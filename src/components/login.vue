@@ -89,7 +89,7 @@ export default {
     padding: 3rem;
     height: 100vh;
     background: url('../assets/img/login-bg.jpg') no-repeat;
-    font-size: 14px;
+    font-size: 16px;
   }
   @media screen and (min-width: 768px) {
     .login-wrap {

@@ -40,7 +40,7 @@
           <p><img src="../../../assets/img/buy.png"></p>
           <p>买入</p>
         </div>
-        <div>
+        <div @click="showNumInput('stockingChicken')">
           <p><img src="../../../assets/img/ji.png"></p>
           <p>放养</p>
         </div>
@@ -107,7 +107,7 @@
       </div>
     </div>
 
-    <b-modal ref="numInput" title="请输入数量" ok-title="确定" cancel-title="取消" @ok="saveNum()">
+    <b-modal ref="numInput" title="请输入数量" ok-title="确定" centered cancel-title="取消" @ok="saveNum()">
       请输入数量：<input type="text" class="number-input" v-model="inputNumber">
     </b-modal>
   </div>
@@ -122,7 +122,7 @@ export default {
   data () {
     return {
       user: undefined,
-      inputNumber: 0,
+      inputNumber: '',
       saveType: '',
       order: {
         userId: '',
@@ -133,6 +133,9 @@ export default {
       hatch: {
         userId: '',
         total: 0
+      },
+      hennery: {
+        number: 0
       }
     }
   },
@@ -166,6 +169,9 @@ export default {
           break
         case 'buyChicken':
           this.saveBuyChicken()
+          break
+        case 'stockingChicken':
+          this.saveStockingChicken()
           break
         case 'sellCommodityEggs':
           this.saveSellCommodityEggs()
@@ -207,6 +213,18 @@ export default {
       clientService.createOrder(this.order).then(res => {
         if (res.status === 200) {
           this.$message({message: '购买成功', type: 'success'})
+          this.inputNumber = 0
+          this.getUserInfo()
+        } else {
+          this.$message({message: res.message, type: 'error'})
+        }
+      })
+    },
+    saveStockingChicken () { // 放养鸡
+      this.hennery.number = +this.inputNumber
+      clientService.saveHennery(this.hennery).then(res => {
+        if (res.status === 200) {
+          this.$message({message: '放养成功', type: 'success'})
           this.inputNumber = 0
           this.getUserInfo()
         } else {

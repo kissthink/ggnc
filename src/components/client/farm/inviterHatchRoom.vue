@@ -4,7 +4,7 @@
     <back-history></back-history>
 
     <div class="sign-in">
-      <button class="btn btn-danger" @click="signIn()">
+      <button class="btn btn-danger btn-lg" @click="signIn()">
         <i class="fas fa-thermometer-half"></i> 签到加温
       </button>
     </div>
@@ -35,6 +35,7 @@ export default {
   methods: {
     getInviterHatchList () {
       this.inviteeId = +this.$route.query.inviteeId
+      this.temperature = 35
       if (this.inviteeId > 0) {
         clientService.getInviterHatchList(this.inviteeId).then(res => {
           this.hatchRooms = res
@@ -45,7 +46,7 @@ export default {
     signIn () {
       let user = {id: this.inviteeId}
       if (user) {
-        clientService.signInForSelf(user).then(res => {
+        clientService.signInForInviter(user).then(res => {
           if (res.status === 200) {
             this.$message({message: '加温成功', type: 'success'})
             this.getInviterHatchList()
