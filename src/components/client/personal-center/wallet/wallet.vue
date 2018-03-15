@@ -5,9 +5,11 @@
 
     <div class="wallet">
       <div class="balance">余额：{{userAsset.balance}}</div>
-      <div>
-        <button class="btn btn-primary btn-lg btn-block">充值</button>
-        <button class="btn btn-primary btn-lg btn-block">提现</button>
+      <div class="wallet-btn">
+        <div class="wallet-btn-item">充值</div>
+        <div class="wallet-btn-item">提现</div>
+        <div class="wallet-btn-item" @click.stop="toTatgetRouter('/transfer-account')">转账</div>
+        <div class="wallet-btn-item">账单</div>
       </div>
     </div>
   </div>
@@ -26,6 +28,9 @@ export default {
     getUserAsset () {
       this.userAsset = JSON.parse(this.$route.query.asset)
       this.userId = JSON.parse(this.$route.query.userId)
+    },
+    toTatgetRouter (url) {
+      this.$router.push(url)
     }
   },
   mounted () {
@@ -49,5 +54,26 @@ export default {
     background: #17a2b8;
     color: #fff;
     font-size: 20px;
+    user-select: none;
+  }
+  .wallet-btn {
+    margin: 1rem;
+    overflow: hidden;
+  }
+  .wallet-btn-item {
+    float: left;
+    margin: 0 4% 4% 0;
+    width: 48%;
+    height: 15rem;
+    line-height: 15rem;
+    background: #007bff;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 16px;
+    user-select: none;
+  }
+  .wallet-btn-item:nth-child(even) {
+    margin-right: 0;
   }
 </style>

@@ -2,7 +2,7 @@ html {
   font-size: 62.5%;
 }
 body {
-  background-color: #eee;
+  background-color: #eee !important;
 }
 .h4-title {
   position: fixed;
@@ -16,6 +16,7 @@ body {
   color: #fff;
   text-align: center;
   z-index: 999;
+  user-select: none;
 }
 .admin-title {
   margin-bottom: 20px;

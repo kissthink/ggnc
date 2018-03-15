@@ -25,7 +25,8 @@ import My from '@/components/client/personal-center/My'
 import Information from '@/components/client/personal-center/Information'
 import PersonalData from '@/components/client/personal-center/PersonalData'
 import EditPassword from '@/components/client/personal-center/EditPassword'
-import Wallet from '@/components/client/personal-center/Wallet'
+import Wallet from '@/components/client/personal-center/wallet/Wallet'
+import TransferAccount from '@/components/client/personal-center/wallet/TransferAccount'
 import NewMamber from '@/components/client/personal-center/NewMamber'
 import InvitingNewMember from '@/components/client/personal-center/InvitingNewMember'
 import RealName from '@/components/client/personal-center/RealName'
@@ -42,6 +43,7 @@ import GoodsDetail from '@/components/admin/goods/GoodsDetail'
 import PropsList from '@/components/admin/props/PropsList'
 import PropsDetail from '@/components/admin/props/PropsDetail'
 import OrdersList from '@/components/admin/OrdersList'
+import Profit from '@/components/admin/profit/profit'
 import OperationLogs from '@/components/admin/operationLogs/OperationLogs'
 import NoticeManagement from '@/components/admin/noticeManagement/NoticeManagement'
 import NoticeDetail from '@/components/admin/noticeManagement/NoticeDetail'
@@ -69,6 +71,7 @@ let router = new Router({
     },
     { path: '/personalData', name: 'PersonalData', component: PersonalData, meta: { requiresAuth: true } }, // 个人信息详情
     { path: '/wallet', name: 'Wallet', component: Wallet, meta: { requiresAuth: true } }, // 钱包
+    { path: '/transfer-account', name: 'TransferAccount', component: TransferAccount, meta: { requiresAuth: true } }, // 转账
     { path: '/new-mamber', name: 'NewMamber', component: NewMamber, meta: { requiresAuth: false } }, // 注册新会员
     { path: '/inviting-new-mamber', name: 'InvitingNewMember', component: InvitingNewMember, meta: { requiresAuth: false } }, // 邀请新会员
     { path: '/real-name', name: 'RealName', component: RealName, meta: { requiresAuth: true } },
@@ -91,6 +94,7 @@ let router = new Router({
         { path: 'goods-list', name: 'GoodsList', component: GoodsList },
         { path: 'props-list', name: 'PropsList', component: PropsList },
         { path: 'orders-list', name: 'OrdersList', component: OrdersList },
+        { path: 'profit', name: 'Profit', component: Profit },
         { path: 'operation-logs', name: 'OperationLogs', component: OperationLogs },
         { path: 'notice-management', name: 'NoticeManagement', component: NoticeManagement },
         { path: 'new-notice', name: 'NoticeDetail', component: NoticeDetail },

@@ -26,6 +26,7 @@ export default {
   henneryList: 'app/hennery/history', // 收获列表
   aidkitDetail: 'app/prop/detail/aidKit', // 急救包详情
   grainDetail: 'app/prop/detail/grain', // 鸡粮详情
+  userProfit: 'app/userProfit', // 用户盈利明细
 
   adminLogin: 'login/api', // 后台登录
   userList: 'api/user/list', // 用户列表
@@ -61,5 +62,6 @@ export default {
   commodityEggTopUpOperationLog: 'api/operationLog/list/6', // 充值商品蛋日志列表
   commodityEggWithdrawOperationLog: 'api/operationLog/list/7', // 商品蛋提现日志列表
   commodityChickenTopUpOperationLog: 'api/operationLog/list/8', // 充值商品鸡日志列表
-  commodityChickenWithdrawOperationLog: 'api/operationLog/list/9' // 商品鸡提现日志列表
+  commodityChickenWithdrawOperationLog: 'api/operationLog/list/9', // 商品鸡提现日志列表
+  platfromProfit: 'api/platform/profit' // 平台收益
 }

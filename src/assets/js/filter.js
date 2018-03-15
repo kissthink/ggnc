@@ -39,8 +39,10 @@ function transformOrderStatus (value) {
   return status
 }
 
-export default {
-  transformTime,
-  transformBusinessType,
-  transformOrderStatus
+let transform = {
+  'transformTime': transformTime,
+  'businessType': transformBusinessType,
+  'orderStatus': transformOrderStatus
 }
+
+export default transform

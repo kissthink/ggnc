@@ -45,6 +45,12 @@
             </div>
             系统公告管理
           </router-link>
+          <router-link to="/admin/profit" tag="li">
+            <div class="menu-icon">
+              <i class="fas fa-cart-plus"></i>
+            </div>
+            平台收益
+          </router-link>
         </ul>
       </div>
     </div>

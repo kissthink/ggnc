@@ -77,10 +77,10 @@ export default {
   },
   computed: {
     totalGrainPrice () {
-      return this.grainDetail.price * this.propsNumber
+      return this.grainDetail.price * (this.propsNumber || 0)
     },
     totalAidkitPrice () {
-      return this.aidkitDetail.price * this.propsNumber
+      return this.aidkitDetail.price * (this.propsNumber || 0)
     }
   },
   watch: {
@@ -135,9 +135,9 @@ export default {
       })
     },
     buyProps () {
-      this.$refs.buyProps.show()
       this.getGrainDetail()
       this.getAidkitDetail()
+      this.$refs.buyProps.show()
     },
     saveBuyProps () {
       if (this.isShowMessage) {

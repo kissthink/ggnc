@@ -183,6 +183,13 @@ function getHarvestList () {
   })
 }
 
+// 用户盈利明细
+function getUserProfit () {
+  return axiosService.getAll(apiUrl.userProfit).then(res => {
+    return res.data.userProfit
+  })
+}
+
 export default {
   getUserInfo,
   registerUser,
@@ -209,5 +216,6 @@ export default {
   buyAidKit,
   getHarvestList,
   getGrainDetail,
-  getAidkitDetail
+  getAidkitDetail,
+  getUserProfit
 }

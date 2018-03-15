@@ -239,6 +239,13 @@ function getCommodityChickenWithdrawLog (page) {
   })
 }
 
+// 获取平台收益
+function getPlatformProfit () {
+  return axiosService.getAll(apiUrl.platfromProfit).then(res => {
+    return res.data.profit
+  })
+}
+
 export default {
   getUserList,
   switchUserEnable,
@@ -273,5 +280,6 @@ export default {
   getCommodityEggTopUpLog,
   getCommodityEggWithdrawLog,
   getCommodityChickenTopUpLog,
-  getCommodityChickenWithdrawLog
+  getCommodityChickenWithdrawLog,
+  getPlatformProfit
 }
