@@ -6,7 +6,7 @@
     <div class="wallet">
       <div class="balance">余额：{{userAsset.balance}}</div>
       <div class="wallet-btn">
-        <div class="wallet-btn-item">充值</div>
+        <div class="wallet-btn-item" @click.stop="toTatgetRouter('/topUp')">充值</div>
         <div class="wallet-btn-item">提现</div>
         <div class="wallet-btn-item" @click.stop="toTatgetRouter('/transfer-account')">转账</div>
         <div class="wallet-btn-item">账单</div>

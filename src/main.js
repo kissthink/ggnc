@@ -14,6 +14,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 // components
 import BackHistory from './components/shared/backHistory'
 import AmountSelect from './components/shared/amountSelect'
+import ClientAmountSelect from './components/shared/clientAmountSelect'
 
 // filter.js
 import filter from './assets/js/filter.js'
@@ -26,6 +27,7 @@ Vue.use(VueJWT)
 // use components for global
 Vue.component('back-history', BackHistory)
 Vue.component('amount-select', AmountSelect)
+Vue.component('client-amount-select', ClientAmountSelect)
 
 // defined filter for global
 for (let transform in filter) {

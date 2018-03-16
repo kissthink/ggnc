@@ -246,6 +246,48 @@ function getPlatformProfit () {
   })
 }
 
+// 获取首页图片列表
+function getIndexImgs () {
+  return axiosService.getAll(apiUrl.home).then(res => {
+    return res.data.homeList
+  })
+}
+
+// 上传首页图片
+function uploadIndexImage (file) {
+  return axiosService.uploadPic(apiUrl.uploadIndexImage, file).then(res => {
+    return res
+  })
+}
+
+// 保存首页图片信息
+function saveIndexImage (imgObj) {
+  return axiosService.post(apiUrl.handleSaveInexImage, imgObj).then(res => {
+    return res
+  })
+}
+
+// 删除首页图片信息
+function delIndexImage (id) {
+  return axiosService.del(apiUrl.handleSaveInexImage, id).then(res => {
+    return res
+  })
+}
+
+// 获取图片详情
+function getIndexImageDetail (id) {
+  return axiosService.get(apiUrl.handleSaveInexImage, id).then(res => {
+    return res.data.homes
+  })
+}
+
+// 修改图片信息
+function changeIndexImageDetail (imgObj) {
+  return axiosService.update(apiUrl.handleSaveInexImage, imgObj).then(res => {
+    return res
+  })
+}
+
 export default {
   getUserList,
   switchUserEnable,
@@ -281,5 +323,11 @@ export default {
   getCommodityEggWithdrawLog,
   getCommodityChickenTopUpLog,
   getCommodityChickenWithdrawLog,
-  getPlatformProfit
+  getPlatformProfit,
+  getIndexImgs,
+  uploadIndexImage,
+  saveIndexImage,
+  delIndexImage,
+  getIndexImageDetail,
+  changeIndexImageDetail
 }

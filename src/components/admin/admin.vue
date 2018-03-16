@@ -39,6 +39,12 @@
             </div>
             操作日志
           </router-link>
+           <router-link to="/admin/index-imgs" tag="li">
+            <div class="menu-icon">
+              <i class="fas fa-images"></i>
+            </div>
+            首页图片管理
+          </router-link>
           <router-link to="/admin/notice-management" tag="li">
             <div class="menu-icon">
               <i class="fas fa-bullhorn"></i>

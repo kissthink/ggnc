@@ -63,5 +63,8 @@ export default {
   commodityEggWithdrawOperationLog: 'api/operationLog/list/7', // 商品蛋提现日志列表
   commodityChickenTopUpOperationLog: 'api/operationLog/list/8', // 充值商品鸡日志列表
   commodityChickenWithdrawOperationLog: 'api/operationLog/list/9', // 商品鸡提现日志列表
-  platfromProfit: 'api/platform/profit' // 平台收益
+  platfromProfit: 'api/platform/profit', // 平台收益
+  home: 'home', // 首页图片列表
+  uploadIndexImage: 'api/home/uploadHomeImage', // 上传首页图片
+  handleSaveInexImage: 'api/home' // 处理首页图片信息
 }

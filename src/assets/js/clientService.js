@@ -190,6 +190,13 @@ function getUserProfit () {
   })
 }
 
+// 获取首页图片列表
+function getIndexImgs () {
+  return axiosService.getAll(apiUrl.home).then(res => {
+    return res.data.homeList
+  })
+}
+
 export default {
   getUserInfo,
   registerUser,
@@ -217,5 +224,6 @@ export default {
   getHarvestList,
   getGrainDetail,
   getAidkitDetail,
-  getUserProfit
+  getUserProfit,
+  getIndexImgs
 }

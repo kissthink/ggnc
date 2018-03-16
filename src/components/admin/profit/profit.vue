@@ -28,6 +28,6 @@ export default {
 }
 </script>
 
-<style secpod>
+<style scoped>
 
 </style>
