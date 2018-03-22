@@ -197,6 +197,48 @@ function getIndexImgs () {
   })
 }
 
+// 用户转账
+function userTransfer (transferObj) {
+  return axiosService.post(apiUrl.userTransfer, transferObj).then(res => {
+    return res
+  })
+}
+
+// 获取用户转账记录
+function getTransferRecord () {
+  return axiosService.getAll(apiUrl.transferRecord).then(res => {
+    return res.data.transferRecord
+  })
+}
+
+// 获取用户充值记录
+function getUserTopUpRecord () {
+  return axiosService.getAll(apiUrl.userTopUpRecord).then(res => {
+    return res.data.list
+  })
+}
+
+// 获取用户提现记录
+function getUserWithDrawRecord () {
+  return axiosService.getAll(apiUrl.userWithDrawRecord).then(res => {
+    return res.data.list
+  })
+}
+
+// 用户充值
+function userTopUp (topUpObj) {
+  return axiosService.post(apiUrl.userTopUp, topUpObj).then(res => {
+    return res
+  })
+}
+
+// 用户提现
+function userWithDraw (withDrawObj) {
+  return axiosService.post(apiUrl.userWithDraw, withDrawObj).then(res => {
+    return res
+  })
+}
+
 export default {
   getUserInfo,
   registerUser,
@@ -225,5 +267,11 @@ export default {
   getGrainDetail,
   getAidkitDetail,
   getUserProfit,
-  getIndexImgs
+  getIndexImgs,
+  userTransfer,
+  getTransferRecord,
+  getUserTopUpRecord,
+  getUserWithDrawRecord,
+  userTopUp,
+  userWithDraw
 }

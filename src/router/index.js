@@ -28,6 +28,8 @@ import EditPassword from '@/components/client/personal-center/EditPassword'
 import Wallet from '@/components/client/personal-center/wallet/Wallet'
 import TransferAccount from '@/components/client/personal-center/wallet/TransferAccount'
 import TopUp from '@/components/client/personal-center/wallet/TopUp'
+import WithDraw from '@/components/client/personal-center/wallet/WithDraw'
+import Bill from '@/components/client/personal-center/wallet/Bill'
 import NewMamber from '@/components/client/personal-center/NewMamber'
 import InvitingNewMember from '@/components/client/personal-center/InvitingNewMember'
 import RealName from '@/components/client/personal-center/RealName'
@@ -75,7 +77,9 @@ let router = new Router({
     { path: '/personalData', name: 'PersonalData', component: PersonalData, meta: { requiresAuth: true } }, // 个人信息详情
     { path: '/wallet', name: 'Wallet', component: Wallet, meta: { requiresAuth: true } }, // 钱包
     { path: '/transfer-account', name: 'TransferAccount', component: TransferAccount, meta: { requiresAuth: true } }, // 转账
-    { path: '/topUp', name: 'TopUp', component: TopUp, meta: { requiresAuth: true } }, // 转账
+    { path: '/topUp', name: 'TopUp', component: TopUp, meta: { requiresAuth: true } }, // 充值
+    { path: '/withDraw', name: 'WithDraw', component: WithDraw, meta: { requiresAuth: true } }, // 提现
+    { path: '/bill', name: 'Bill', component: Bill, meta: { requiresAuth: true } }, // 账单
     { path: '/new-mamber', name: 'NewMamber', component: NewMamber, meta: { requiresAuth: false } }, // 注册新会员
     { path: '/inviting-new-mamber', name: 'InvitingNewMember', component: InvitingNewMember, meta: { requiresAuth: false } }, // 邀请新会员
     { path: '/real-name', name: 'RealName', component: RealName, meta: { requiresAuth: true } },

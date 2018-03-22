@@ -1,3 +1,5 @@
+import sh2 from './sh2.js'
+
 function regAmount (str) {
   if (!str) {
     return false
@@ -42,5 +44,6 @@ export default {
   regInteger,
   regMobile,
   regPassword,
-  regIdCard
+  regIdCard,
+  sh2
 }

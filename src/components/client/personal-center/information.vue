@@ -87,7 +87,7 @@ export default {
       this.$router.push(url)
     },
     toWallet () {
-      let queryData = {userId: this.user.id, asset: JSON.stringify(this.user.asset)}
+      let queryData = {userId: this.user.id}
       this.$router.push({path: '/wallet', query: queryData})
     },
     invitingNewMenber () {

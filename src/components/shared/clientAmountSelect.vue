@@ -17,9 +17,9 @@ export default {
     return {
       amountArray: [
         {id: 1, amount: 500, isSelected: false},
-        {id: 2, amount: 1000, isSelected: false},
-        {id: 3, amount: 1500, isSelected: false},
-        {id: 4, amount: 2000, isSelected: false}
+        {id: 2, amount: 700, isSelected: false},
+        {id: 3, amount: 900, isSelected: false},
+        {id: 4, amount: 1000, isSelected: false}
       ]
     }
   },
@@ -39,6 +39,7 @@ export default {
   .client-amount-wrap {
     width: 100%;
     overflow: hidden;
+    user-select: none;
   }
   .client-amount-item {
     float: left;

@@ -4,30 +4,36 @@
     <back-history></back-history>
 
     <div class="wallet">
-      <div class="balance">余额：{{userAsset.balance}}</div>
+      <div class="balance">
+        <p>余额：{{userAsset.balance}}</p>
+        <p>银票：{{userAsset.tael}}</p>
+      </div>
       <div class="wallet-btn">
         <div class="wallet-btn-item" @click.stop="toTatgetRouter('/topUp')">充值</div>
-        <div class="wallet-btn-item">提现</div>
+        <div class="wallet-btn-item" @click.stop="toTatgetRouter('/withDraw')">提现</div>
         <div class="wallet-btn-item" @click.stop="toTatgetRouter('/transfer-account')">转账</div>
-        <div class="wallet-btn-item">账单</div>
+        <div class="wallet-btn-item" @click.stop="toTatgetRouter('/bill')">账单</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import clientService from '@/assets/js/clientService'
 export default {
   name: 'Wallet',
   data () {
     return {
       userId: '',
-      userAsset: ''
+      userAsset: {}
     }
   },
   methods: {
     getUserAsset () {
-      this.userAsset = JSON.parse(this.$route.query.asset)
       this.userId = JSON.parse(this.$route.query.userId)
+      clientService.getUserInfo(this.userId).then(res => {
+        this.userAsset = res.asset
+      })
     },
     toTatgetRouter (url) {
       this.$router.push(url)
@@ -46,9 +52,8 @@ export default {
   }
   .balance {
     margin: 1rem 0;
+    padding: 3rem 0;
     width: 100%;
-    height: 10rem;
-    line-height: 10rem;
     text-align: center;
     border-radius: 5px;
     background: #17a2b8;

@@ -27,6 +27,12 @@ export default {
   aidkitDetail: 'app/prop/detail/aidKit', // 急救包详情
   grainDetail: 'app/prop/detail/grain', // 鸡粮详情
   userProfit: 'app/userProfit', // 用户盈利明细
+  userTransfer: 'app/user/transfer', // 用户转账
+  transferRecord: 'app/user/transferRecord', // 转账记录
+  userTopUpRecord: 'app/user/topUp', // 用户充值记录
+  userWithDrawRecord: 'app/user/withdraw', // 用户提现记录
+  userTopUp: 'app/user/topUp', // 用户充值
+  userWithDraw: 'app/user/withdraw', // 用户提现
 
   adminLogin: 'login/api', // 后台登录
   userList: 'api/user/list', // 用户列表

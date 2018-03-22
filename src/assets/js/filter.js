@@ -5,6 +5,16 @@ function transformTime (value) {
   return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 }
 
+// 将时间戳转换为年月日-时分秒
+function tansfromToTime (value) {
+  if (!value) return
+  let date = new Date(+value)
+  let minutes = date.getMinutes().toString().padStart(2, '0')
+  let seconds = date.getSeconds().toString().padStart(2, '0')
+  return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() +
+         ' ' + date.getHours() + ':' + minutes + ':' + seconds
+}
+
 // 转换买卖类型
 function transformBusinessType (value) {
   if (!value) return
@@ -39,10 +49,47 @@ function transformOrderStatus (value) {
   return status
 }
 
+// 转换充值提现状态
+function transformBillStatus (value) {
+  let status = ''
+  switch (value) {
+    case 0:
+      status = '待匹配'
+      break
+    case 1:
+      status = '已匹配'
+      break
+    case 2:
+      status = '成功'
+      break
+    case 3:
+      status = '失败'
+      break
+  }
+  return status
+}
+
+// 转换支付方式
+function transformPayMethod (val) {
+  let parMethod = ''
+  switch (val) {
+    case 0:
+      parMethod = '支付宝'
+      break
+    case 1:
+      parMethod = '微信'
+      break
+  }
+  return parMethod
+}
+
 let transform = {
   'transformTime': transformTime,
   'businessType': transformBusinessType,
-  'orderStatus': transformOrderStatus
+  'orderStatus': transformOrderStatus,
+  'tansfromToTime': tansfromToTime,
+  'transformBillStatus': transformBillStatus,
+  'transformPayMethod': transformPayMethod
 }
 
 export default transform

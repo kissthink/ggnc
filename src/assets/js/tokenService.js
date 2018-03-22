@@ -1,5 +1,6 @@
 import Vue from 'vue'
 
+// 解析token
 function decodeToken () {
   const secretKey = 'suancloud_chickenfarm'
   if (!localStorage.getItem('USER_TOKEN')) { return false }
@@ -7,6 +8,7 @@ function decodeToken () {
   return Vue.$jwt.decode(token, secretKey)
 }
 
+// 验证token是否过期
 function isOverdue () {
   let currentTime = new Date().getTime()
   if (!decodeToken()) { return true }

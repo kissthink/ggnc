@@ -1,12 +1,14 @@
 <template>
-  <div class="top-up">
-    <h4 class="h4-title">账号充值</h4>
+  <div class="withdraw">
+    <h4 class="h4-title">账号提现</h4>
     <back-history></back-history>
 
-    <div class="amount">
-      <p>请选择充值金额:</p>
-      <div class="amount-item">
-        <client-amount-select v-on:selectAmount="selectTopUpAmount($event)"></client-amount-select>
+    <div class="withdraw-form">
+      <div class="mt-4 mb-4">
+        <el-input placeholder="提现金额不能小于500" v-model="withdrawObj.amount">
+          <template slot="prepend">提现金额</template>
+        </el-input>
+        <small v-if="isShowAmountMessage">请输入正确的金额</small>
       </div>
 
       <p>请选择支付方式:</p>
@@ -16,14 +18,14 @@
       <button class="btn btn-info btn-lg btn-block" @click="confirmAmount()">下一步</button>
     </div>
 
-    <div class="mask" v-if="isTopUp">
+    <div class="mask" v-if="isWithdraw">
       <div class="mask-icon">
         <i class="fas fa-redo fa-spin"></i>
       </div>
     </div>
 
-    <b-modal ref="password" title="请输入交易密码" ok-title="确定" centered cancel-title="取消" @ok="saveUserTopUp()">
-      <el-input v-model="topUpObj.payPassword" class="text-center" type="password"></el-input>
+    <b-modal ref="password" title="请输入交易密码" ok-title="确定" centered cancel-title="取消" @ok="saveUserWithdraw()">
+      <el-input v-model="withdrawObj.payPassword" class="text-center" type="password"></el-input>
     </b-modal>
   </div>
 </template>
@@ -33,40 +35,42 @@ import PayMethodSelect from '../../../shared/PayMethodSelect'
 import clientService from '@/assets/js/clientService'
 import util from '@/assets/js/util'
 export default {
-  name: 'TopUp',
+  name: 'WithDraw',
   components: {
     'payMethodSelect': PayMethodSelect
   },
   data () {
     return {
-      topUpObj: {
+      withdrawObj: {
         amount: '',
         payPassword: '',
         type: ''
       },
-      isTopUp: false
+      isShowAmountMessage: false,
+      isWithdraw: false
     }
   },
   methods: {
-    selectTopUpAmount (amount) {
-      this.topUpObj.amount = amount
-    },
     selectPayType (type) {
-      this.topUpObj.type = type
+      this.withdrawObj.type = type
     },
     confirmAmount () {
+      if (!util.regAmount(this.withdrawObj.amount)) {
+        this.isShowAmountMessage = true
+        return
+      }
       this.$refs.password.show()
     },
-    saveUserTopUp () {
-      this.topUpObj.payPassword = util.sh2(this.topUpObj.payPassword)
-      this.isTopUp = true
-      clientService.userTopUp(this.topUpObj).then(res => {
-        this.isTopUp = false
+    saveUserWithdraw () {
+      this.withdrawObj.payPassword = util.sh2(this.withdrawObj.payPassword)
+      this.isWithdraw = true
+      clientService.userWithDraw(this.withdrawObj).then(res => {
+        this.isWithdraw = false
         if (res.status === 200) {
           window.history.back()
-          this.$message({message: '申请充值成功', type: 'success'})
+          this.$message({message: '申请提现成功', type: 'success'})
         } else {
-          this.topUpObj.payPassword = ''
+          this.withdrawObj.payPassword = ''
           this.$message({message: res.message, type: 'error'})
         }
       })
@@ -76,19 +80,16 @@ export default {
 </script>
 
 <style scoped>
-  .top-up {
-    padding-top: 56px;
+  .withdraw {
+    padding: 56px 0 0 0;
   }
-  .amount {
-    margin-top: 1rem;
+  .withdraw-form {
     padding: 1rem;
   }
-  .amount p {
+  .withdraw-form p {
+    margin-bottom: 1rem;
     color: #dc3545;
     font-size: 14px;
-  }
-  .amount .amount-item {
-    padding: 1rem 0;
   }
   .mask {
     position: fixed;
