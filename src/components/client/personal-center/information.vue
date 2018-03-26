@@ -2,7 +2,7 @@
   <div  class="information-wrap">
     <h4 class="h4-title">个人信息</h4>
 
-    <div class="user-info" @click="toTargetRouter('/personalData')">
+    <div class="user-info">
       <div class="user-avatar">
         <img src="../../../assets/img/user.png" height="280" width="280" alt="wallhaven-603537">
       </div>

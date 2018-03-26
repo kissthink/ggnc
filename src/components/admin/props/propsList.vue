@@ -11,7 +11,7 @@
       <tbody v-if="propsList.length > 0">
         <tr v-for="props of propsList" :key="props.id">
           <td>{{props.id}}</td>
-          <td><a href="jvascript:void(0);" @click="selectProps(props)">{{props.name}}</a></td>
+          <td><a href="javascript:void(0);" @click="selectProps(props)">{{props.name}}</a></td>
           <td>{{props.price}}</td>
         </tr>
       </tbody>

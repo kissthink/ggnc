@@ -187,7 +187,7 @@ export default {
       clientService.createOrder(this.order).then(res => {
         if (res.status === 200) {
           this.$message({message: '购买成功', type: 'success'})
-          this.inputNumber = 0
+          this.inputNumber = ''
           this.getUserInfo()
         } else {
           this.$message({message: res.message, type: 'error'})
@@ -200,7 +200,7 @@ export default {
       clientService.hatchEggs(this.hatch).then(res => {
         if (res.status === 200) {
           this.$message({message: '添蛋到孵化房成功', type: 'success'})
-          this.inputNumber = 0
+          this.inputNumber = ''
           this.getUserInfo()
         } else {
           this.$message({message: res.message, type: 'error'})
@@ -213,7 +213,7 @@ export default {
       clientService.createOrder(this.order).then(res => {
         if (res.status === 200) {
           this.$message({message: '购买成功', type: 'success'})
-          this.inputNumber = 0
+          this.inputNumber = ''
           this.getUserInfo()
         } else {
           this.$message({message: res.message, type: 'error'})
@@ -225,7 +225,7 @@ export default {
       clientService.saveHennery(this.hennery).then(res => {
         if (res.status === 200) {
           this.$message({message: '放养成功', type: 'success'})
-          this.inputNumber = 0
+          this.inputNumber = ''
           this.getUserInfo()
         } else {
           this.$message({message: res.message, type: 'error'})
@@ -238,7 +238,7 @@ export default {
       clientService.createOrder(this.order).then(res => {
         if (res.status === 200) {
           this.$message({message: '出售成功', type: 'success'})
-          this.inputNumber = 0
+          this.inputNumber = ''
           this.getUserInfo()
         } else {
           this.$message({message: res.message, type: 'error'})
@@ -251,7 +251,7 @@ export default {
       clientService.createOrder(this.order).then(res => {
         if (res.status === 200) {
           this.$message({message: '出售成功', type: 'success'})
-          this.inputNumber = 0
+          this.inputNumber = ''
           this.getUserInfo()
         } else {
           this.$message({message: res.message, type: 'error'})

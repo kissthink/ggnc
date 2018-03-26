@@ -28,12 +28,14 @@
                     label-for="wechatWithdrawCode">
           <b-form-file v-model="selectWechatWithdrawCode" accept=".jpg, .png, .gif"
                        placeholder="选择微信收款码"></b-form-file>
+          <small v-if="isShowWechatCodeMeg">微信付款码图片大小超出限制</small>
         </b-form-group>
 
         <b-form-group id="alipayWithdrawCode"
                     label="支付宝收款码："
                     label-for="alipayWithdrawCode">
           <b-form-file v-model="selectAlipayWithdrawCode" accept=".jpg, .png, .gif" placeholder="选择支付宝收款码"></b-form-file>
+          <small v-if="isShowAliPayCodeMeg">支付宝付款码图片大小超出限制</small>
         </b-form-group>
 
         <button class="btn btn-info btn-block btn-lg mb-3 mt-4" @click.prevent="save()" :disabled="isSaving">
@@ -66,15 +68,30 @@ export default {
       },
       selectWechatWithdrawCode: '',
       selectAlipayWithdrawCode: '',
+      isShowWechatCodeMeg: false,
+      isShowAliPayCodeMeg: false,
       modalShow: false,
       isSaving: false
     }
   },
+  watch: {
+    selectWechatWithdrawCode () {
+      if (this.selectWechatWithdrawCode.size > 1024 * 1024) {
+        this.isShowWechatCodeMeg = true
+      } else {
+        this.isShowWechatCodeMeg = false
+      }
+    },
+    selectAlipayWithdrawCode () {
+      if (this.selectAlipayWithdrawCode.size > 1024 * 1024) {
+        this.isShowAliPayCodeMeg = true
+      } else {
+        this.isShowAliPayCodeMeg = false
+      }
+    }
+  },
   methods: {
     save () {
-      this.modalShow = true
-    },
-    startSaveRealName () {
       if (this.regRealName()) {
         this.$message({message: '姓名和身份证号不能为空', type: 'error'})
         return
@@ -83,6 +100,15 @@ export default {
         this.$message({message: '请输入正确的身份证号', type: 'error'})
         return
       }
+      if (this.isShowWechatCodeMeg) {
+        return
+      }
+      if (this.isShowAliPayCodeMeg) {
+        return
+      }
+      this.modalShow = true
+    },
+    startSaveRealName () {
       this.isSaving = true
       this.uploadWechatWithdrawCode()
     },
@@ -124,7 +150,7 @@ export default {
       clientService.saveUserInfo(this.real).then(res => {
         this.isSaving = false
         if (res.status > 200) {
-          this.$message({message: '认证失败', type: 'error'})
+          this.$message({message: res.message, type: 'error'})
         } else {
           this.$message({message: '认证成功', type: 'success'})
           this.$router.push('/my')

@@ -1,7 +1,7 @@
 <template>
   <div class="admin-login">
-    <h1>咕咕农场后台管理系统</h1>
     <form>
+      <h1>咕咕农场后台管理系统</h1>
       <div class="form-input">
         <div class="input-icon">
           <i class="fas fa-user"></i>
@@ -75,7 +75,7 @@ export default {
     overflow: hidden;
   }
   .admin-login h1 {
-    margin-top: 210px;
+    margin-bottom: 3rem;
     text-align: center;
     color: #343a40;
     font-size: 28px;

@@ -26,7 +26,7 @@
               <th>状态</th>
             </thead>
             <tbody v-if="topUpRecord.length > 0">
-              <tr v-for="item of topUpRecord" :key="item.id">
+              <tr v-for="item of topUpRecord" :key="item.id" @click="selectedTopUpRecord(item)">
                 <td>{{item.createTime | transformTime}}</td>
                 <td>{{item.amount}}</td>
                 <td>{{item.type | transformPayMethod}}</td>
@@ -44,7 +44,7 @@
               <th>状态</th>
             </thead>
             <tbody v-if="withDrawRecord.length > 0">
-              <tr v-for="item of withDrawRecord" :key="item.id">
+              <tr v-for="item of withDrawRecord" :key="item.id" @click="selectedWithdrawRecord(item)">
                 <td>{{item.createTime | transformTime}}</td>
                 <td>{{item.amount}}</td>
                 <td>{{item.type | transformPayMethod}}</td>
@@ -55,12 +55,30 @@
         </el-tab-pane>
       </el-tabs>
     </div>
+
+    <b-modal v-model="showTopUpConfrim" title="获取收款码" ok-title="上传付款凭证"
+             centered cancel-title="取消" @ok="uploadPayCode()">
+      <div class="code-img">
+        <button class="btn btn-primary" v-if="!showReceiptCode" @click="getCode()">获取收款码</button>
+        <img :src="receiptCode" v-if="showReceiptCode">
+        <p v-if="showReceiptCode">验证码：{{verificationCode}}</p>
+      </div>
+    </b-modal>
+
+    <b-modal ref="withdrawConfrim" title="确认收款" ok-title="确定"
+             centered cancel-title="取消" @ok="saveWithdrawConfrim()">
+      <label>
+        输入验证码:
+        <el-input v-model="withdrawConfrim" class="text-center" type="text"></el-input>
+      </label>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import clientService from '@/assets/js/clientService'
 import tokenService from '@/assets/js/tokenService'
+import axios from 'axios'
 export default {
   name: 'Bill',
   data () {
@@ -69,7 +87,15 @@ export default {
       transferRecord: [],
       topUpRecord: [],
       withDrawRecord: [],
-      userId: tokenService.decodeToken().id
+      userId: tokenService.decodeToken().id,
+      withdrawConfrim: '',
+      withDrawRecordId: '',
+      receiptCode: '',
+      verificationCode: '',
+      topUpRecordId: '',
+      showReceiptCode: false,
+      showTopUpConfrim: false,
+      baseUrl: axios.defaults.baseURL.slice(0, -1)
     }
   },
   methods: {
@@ -86,6 +112,17 @@ export default {
     getUserWithDrawRecord () {
       clientService.getUserWithDrawRecord().then(res => {
         this.withDrawRecord = res
+      })
+    },
+    getCode () {
+      clientService.getWithdrawCode(this.topUpRecordId).then(res => {
+        this.verificationCode = res.captcha
+        if (res.status === 0) {
+          this.receiptCode = this.baseUrl + res.withdraw.user.userInfo.alipayWithdrawCode
+        } else {
+          this.receiptCode = this.baseUrl + res.withdraw.user.userInfo.wechatWithdrawCode
+        }
+        this.showReceiptCode = true
       })
     },
     selectTab (val) {
@@ -113,6 +150,44 @@ export default {
     },
     displayAmountIcon (record) {
       return this.judgeUserId(record.expense.id) ? '-' : '+'
+    },
+    selectedWithdrawRecord (record) {
+      if (record.status !== 1) {
+        this.$message('该单未匹配成功或已经完成')
+        return
+      }
+      this.$refs.withdrawConfrim.show()
+      this.withDrawRecordId = record.id
+    },
+    selectedTopUpRecord (record) {
+      if (record.status !== 1) {
+        this.$message('该单未匹配成功或已经完成')
+        return
+      }
+      this.topUpRecordId = record.id
+      if (this.showReceiptCode) {
+        this.showReceiptCode = false
+      }
+      this.showTopUpConfrim = true
+    },
+    uploadPayCode () {
+      this.$router.push({path: 'reg-receipt-code', query: { recordId: this.topUpRecordId }})
+    },
+    saveWithdrawConfrim () {
+      if (this.withdrawConfrim === '') {
+        this.$message({message: '请输入验证码', type: 'error'})
+        return
+      }
+      let data = {id: this.withDrawRecordId + '/' + this.withdrawConfrim}
+      clientService.confirmWithdraw(data).then(res => {
+        this.withdrawConfrim = ''
+        if (res.status === 200) {
+          this.getUserWithDrawRecord()
+          this.$message({message: '收款成功', type: 'success'})
+        } else {
+          this.$message({message: res.message, type: 'error'})
+        }
+      })
     }
   },
   created () {
@@ -151,5 +226,12 @@ export default {
     font-size: 16px;
     font-weight: bold;
     color: #000;
+  }
+  .code-img img {
+    width: 100%;
+  }
+  .code-img p {
+    color: red;
+    font-size: 16px;
   }
 </style>

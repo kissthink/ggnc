@@ -70,7 +70,7 @@ export default {
         this.isLogin = false
         this.buttonLoginMessage = '登录'
         if (res.data.status > 200) {
-          this.$message({message: `用户名或密码错误`, type: 'error'})
+          this.$message({message: res.data.message, type: 'error'})
         } else {
           this.$message({message: `欢迎回来`, type: 'success'})
           localStorage.setItem('USER_TOKEN', res.data.data.token)

@@ -4,6 +4,16 @@ html {
 body {
   background-color: #eee !important;
 }
+small {
+  color: #dc3545;
+}
+button, input {
+  padding: .5rem 1rem !important;
+  font-size: 16px !important;
+}
+table {
+  font-size: 14px;
+}
 .h4-title {
   position: fixed;
   top: 0;

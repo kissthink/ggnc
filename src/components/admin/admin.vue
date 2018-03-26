@@ -31,7 +31,7 @@
             <div class="menu-icon">
               <i class="fas fa-list-ol"></i>
             </div>
-            订单管理
+            充值提现管理
           </router-link>
           <router-link to="/admin/operation-logs" tag="li">
             <div class="menu-icon">
@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     getLoginNameForToken () {
-      this.name = tokenService.decodeToken().nickName
+      this.name = tokenService.decodeToken().adminName
     },
     loginOut () {
       localStorage.removeItem('USER_TOKEN')

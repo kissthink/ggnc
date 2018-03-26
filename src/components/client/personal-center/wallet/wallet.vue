@@ -13,19 +13,38 @@
         <div class="wallet-btn-item" @click.stop="toTatgetRouter('/withDraw')">提现</div>
         <div class="wallet-btn-item" @click.stop="toTatgetRouter('/transfer-account')">转账</div>
         <div class="wallet-btn-item" @click.stop="toTatgetRouter('/bill')">账单</div>
+        <div class="wallet-btn-item" @click="transformBalance()">银票转余额</div>
       </div>
     </div>
+
+    <b-modal ref="transformBalance" title="银票转余额" ok-title="确定"
+             centered cancel-title="取消"
+             @ok="saveTransformBalance()">
+      <label>
+        转换额度:
+        <el-input v-model="transformBalanceObj.amount" class="text-center" type="number"></el-input>
+      </label>
+      <label>
+        交易密码:
+        <el-input v-model="transformBalanceObj.payPassword" class="text-center" type="password"></el-input>
+      </label>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import clientService from '@/assets/js/clientService'
+import util from '@/assets/js/util'
 export default {
   name: 'Wallet',
   data () {
     return {
       userId: '',
-      userAsset: {}
+      userAsset: {},
+      transformBalanceObj: {
+        amount: '',
+        payPassword: ''
+      }
     }
   },
   methods: {
@@ -37,6 +56,29 @@ export default {
     },
     toTatgetRouter (url) {
       this.$router.push(url)
+    },
+    transformBalance () {
+      this.$refs.transformBalance.show()
+    },
+    saveTransformBalance () {
+      if (!util.regAmount(this.transformBalanceObj.amount)) {
+        this.$message({message: '请输入正确的额度', type: 'error'})
+        return
+      }
+      if (!this.transformBalanceObj.payPassword === '') {
+        this.$message({message: '请输入交易密码', type: 'error'})
+        return
+      }
+      this.transformBalanceObj.payPassword = util.sh2(this.transformBalanceObj.payPassword)
+      clientService.taelConvertBalance(this.transformBalanceObj).then(res => {
+        if (res.status === 200) {
+          this.$message({message: '转换成功', type: 'success'})
+          this.getUserAsset()
+        } else {
+          this.transformBalanceObj.payPassword = ''
+          this.$message({message: res.message, type: 'error'})
+        }
+      })
     }
   },
   mounted () {

@@ -239,6 +239,41 @@ function userWithDraw (withDrawObj) {
   })
 }
 
+// 银票转余额
+function taelConvertBalance (obj) {
+  return axiosService.post(apiUrl.taelConvertBalance, obj).then(res => {
+    return res
+  })
+}
+
+// 确认收款
+function confirmWithdraw (data) {
+  return axiosService.patch(apiUrl.confirmWithdraw, data).then(res => {
+    return res
+  })
+}
+
+// 获取收款码
+function getWithdrawCode (id) {
+  return axiosService.get(apiUrl.getWithdrawCode, id).then(res => {
+    return res.data.match
+  })
+}
+
+// 上传付款凭证
+function uploadCredential (file) {
+  return axiosService.uploadPic(apiUrl.uploadCredential, file).then(res => {
+    return res
+  })
+}
+
+// 提交凭证
+function saveCredential (data, params) {
+  return axiosService.patch(apiUrl.saveCredential, data, params).then(res => {
+    return res
+  })
+}
+
 export default {
   getUserInfo,
   registerUser,
@@ -273,5 +308,10 @@ export default {
   getUserTopUpRecord,
   getUserWithDrawRecord,
   userTopUp,
-  userWithDraw
+  userWithDraw,
+  taelConvertBalance,
+  confirmWithdraw,
+  getWithdrawCode,
+  uploadCredential,
+  saveCredential
 }

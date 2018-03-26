@@ -288,6 +288,71 @@ function changeIndexImageDetail (imgObj) {
   })
 }
 
+// 获取充值列表
+function getMathTopUpList (type) {
+  let params = { params: type }
+  return axiosService.getAll(apiUrl.mathTopUp, params).then(res => {
+    return res.data.list
+  })
+}
+
+// 获取提现列表
+function getMathWithdrawList (type) {
+  let params = { params: type }
+  return axiosService.getAll(apiUrl.mathWithdraw, params).then(res => {
+    return res.data.list
+  })
+}
+
+// 匹配订单
+function matchOrder (matchObj) {
+  return axiosService.post(apiUrl.match, matchObj).then(res => {
+    return res
+  })
+}
+
+// 平台匹配
+function adminMatch (matchObj) {
+  return axiosService.post(apiUrl.adminMatch, matchObj).then(res => {
+    return res
+  })
+}
+
+// 获取已匹配订单列表
+function getMatchedList () {
+  return axiosService.getAll(apiUrl.match).then(res => {
+    return res.data.list
+  })
+}
+
+// 完成充值
+function topUpPass (order) {
+  return axiosService.patch(apiUrl.topUpPass, order).then(res => {
+    return res
+  })
+}
+
+// 完成订单
+function completeMatch (order) {
+  return axiosService.patch(apiUrl.completeMatch, order).then(res => {
+    return res
+  })
+}
+
+// 获取后台系统配置
+function getAdminConfig () {
+  return axiosService.getAll(apiUrl.adminConfig).then(res => {
+    return res
+  })
+}
+
+// 修改后台系统配置
+function updateAdminConfig (config) {
+  return axiosService.update(apiUrl.adminConfig, config).then(res => {
+    return res
+  })
+}
+
 export default {
   getUserList,
   switchUserEnable,
@@ -329,5 +394,14 @@ export default {
   saveIndexImage,
   delIndexImage,
   getIndexImageDetail,
-  changeIndexImageDetail
+  changeIndexImageDetail,
+  getMathTopUpList,
+  getMathWithdrawList,
+  matchOrder,
+  adminMatch,
+  getMatchedList,
+  topUpPass,
+  completeMatch,
+  getAdminConfig,
+  updateAdminConfig
 }

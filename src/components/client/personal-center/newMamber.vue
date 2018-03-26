@@ -114,6 +114,7 @@ export default {
           this.newMamber.password = ''
           this.newMamber.payPassword = ''
           this.regPayPassword = ''
+          this.$router.push('/login')
         } else if (res.status === 1000) {
           this.$message({message: '手机号已注册', type: 'error'})
         } else {

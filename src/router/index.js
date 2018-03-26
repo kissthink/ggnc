@@ -30,6 +30,7 @@ import TransferAccount from '@/components/client/personal-center/wallet/Transfer
 import TopUp from '@/components/client/personal-center/wallet/TopUp'
 import WithDraw from '@/components/client/personal-center/wallet/WithDraw'
 import Bill from '@/components/client/personal-center/wallet/Bill'
+import RegReceiptCode from '@/components/client/personal-center/wallet/RegReceiptCode'
 import NewMamber from '@/components/client/personal-center/NewMamber'
 import InvitingNewMember from '@/components/client/personal-center/InvitingNewMember'
 import RealName from '@/components/client/personal-center/RealName'
@@ -45,7 +46,8 @@ import GoodsList from '@/components/admin/goods/GoodsList'
 import GoodsDetail from '@/components/admin/goods/GoodsDetail'
 import PropsList from '@/components/admin/props/PropsList'
 import PropsDetail from '@/components/admin/props/PropsDetail'
-import OrdersList from '@/components/admin/OrdersList'
+import OrdersList from '@/components/admin/orders/OrdersList'
+import MatchedOrdersList from '@/components/admin/orders/MatchedOrdersList'
 import Profit from '@/components/admin/profit/profit'
 import OperationLogs from '@/components/admin/operationLogs/OperationLogs'
 import IndexImgs from '@/components/admin/indexImgs/IndexImgs'
@@ -80,6 +82,7 @@ let router = new Router({
     { path: '/topUp', name: 'TopUp', component: TopUp, meta: { requiresAuth: true } }, // 充值
     { path: '/withDraw', name: 'WithDraw', component: WithDraw, meta: { requiresAuth: true } }, // 提现
     { path: '/bill', name: 'Bill', component: Bill, meta: { requiresAuth: true } }, // 账单
+    { path: '/reg-receipt-code', name: 'RegReceiptCode', component: RegReceiptCode, meta: { requiresAuth: true } }, // 上传付款截图
     { path: '/new-mamber', name: 'NewMamber', component: NewMamber, meta: { requiresAuth: false } }, // 注册新会员
     { path: '/inviting-new-mamber', name: 'InvitingNewMember', component: InvitingNewMember, meta: { requiresAuth: false } }, // 邀请新会员
     { path: '/real-name', name: 'RealName', component: RealName, meta: { requiresAuth: true } },
@@ -102,6 +105,7 @@ let router = new Router({
         { path: 'goods-list', name: 'GoodsList', component: GoodsList },
         { path: 'props-list', name: 'PropsList', component: PropsList },
         { path: 'orders-list', name: 'OrdersList', component: OrdersList },
+        { path: 'matched-orders-list', name: 'MatchedOrdersList', component: MatchedOrdersList },
         { path: 'profit', name: 'Profit', component: Profit },
         { path: 'operation-logs', name: 'OperationLogs', component: OperationLogs },
         { path: 'index-imgs', name: 'IndexImgs', component: IndexImgs },

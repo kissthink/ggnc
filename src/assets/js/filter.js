@@ -83,13 +83,31 @@ function transformPayMethod (val) {
   return parMethod
 }
 
+// 转换订单匹配状态
+function transformMatchOrderType (val) {
+  let type = ''
+  switch (val) {
+    case 0:
+      type = '待付款'
+      break
+    case 1:
+      type = '已付款'
+      break
+    case 2:
+      type = '充值成功'
+      break
+  }
+  return type
+}
+
 let transform = {
   'transformTime': transformTime,
   'businessType': transformBusinessType,
   'orderStatus': transformOrderStatus,
   'tansfromToTime': tansfromToTime,
   'transformBillStatus': transformBillStatus,
-  'transformPayMethod': transformPayMethod
+  'transformPayMethod': transformPayMethod,
+  'transformMatchOrderType': transformMatchOrderType
 }
 
 export default transform

@@ -1,7 +1,7 @@
 export default {
   userLogin: 'login/app', // 客户端登录
   userInfo: 'app/user/detail', // 用户信息
-  userRegister: 'app/user/register', // 注册用户
+  userRegister: 'register/app', // 注册用户
   uplocdWithdrawCode: 'app/userInfo/uploadWithdrawCode', // 上传收款码
   userInfoSave: 'app/userInfo/save', // 保存用户实名信息
   orderList: 'app/order/list', // 我的订单
@@ -14,7 +14,7 @@ export default {
   signInForSelf: 'app/hatch/signInForSelf', // 签到加温
   signInForInviter: 'app/hatch/signInForInviter', // 帮师傅签到加温
   hatched: 'app/hatch/hatched', // 孵化记录
-  noticeList: 'app/notice/list', // 公告列表
+  noticeList: 'notice', // 公告列表
   changePassword: 'app/user/changePassword', // 修改密码
   hennerySave: 'app/hennery/save', // 放鸡到养鸡场
   inHennery: 'app/hennery/inHennery', // 在养鸡列表
@@ -33,6 +33,11 @@ export default {
   userWithDrawRecord: 'app/user/withdraw', // 用户提现记录
   userTopUp: 'app/user/topUp', // 用户充值
   userWithDraw: 'app/user/withdraw', // 用户提现
+  taelConvertBalance: 'app/user/taelConvertBalance', // 银票转余额
+  confirmWithdraw: 'app/user/confirmWithdraw', // 确认收款
+  getWithdrawCode: 'app/user/withdrawCode', // 获取收款码
+  uploadCredential: 'app/user/uploadCredential', // 上传付款凭证
+  saveCredential: 'app/user/credential', // 提交凭证
 
   adminLogin: 'login/api', // 后台登录
   userList: 'api/user/list', // 用户列表
@@ -72,5 +77,12 @@ export default {
   platfromProfit: 'api/platform/profit', // 平台收益
   home: 'home', // 首页图片列表
   uploadIndexImage: 'api/home/uploadHomeImage', // 上传首页图片
-  handleSaveInexImage: 'api/home' // 处理首页图片信息
+  handleSaveInexImage: 'api/home', // 处理首页图片信息
+  mathTopUp: 'api/match/topUp', // 获取充值列表
+  mathWithdraw: 'api/match/withdraw', // 获取提现列表
+  match: 'api/match', // 匹配订单
+  adminMatch: 'api/match/admin', // 平台匹配
+  topUpPass: 'api/match/topUpPass', // 充值完成
+  completeMatch: 'api/match/complete', // 完成订单
+  adminConfig: 'api/config' // 后台系统配置
 }

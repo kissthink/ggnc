@@ -54,7 +54,7 @@ export default {
       if (this.isSaveing) {
         return
       }
-      if (!util.regInteger(this.props.price)) {
+      if (!util.regAmount(this.props.price)) {
         return
       }
       this.isSaveing = true

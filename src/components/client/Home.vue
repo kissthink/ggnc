@@ -34,6 +34,16 @@
 
     <p class="home-title">首页</p>
 
+    <div class="notice" v-if="notice">
+      <div class="notice-icon">
+        <i class="fas fa-bullhorn"></i>
+      </div>
+      <div style="visibility: hidden">123</div>
+      <div class="notice-text">
+        <div class="animation">{{notice.content}}</div>
+      </div>
+    </div>
+
     <div class="product-list row" v-if="images.length > 0">
       <div class="product-item col-sm-12 col-md-6 col-lg-4" v-for="img of images" :key="img.id">
         <img :src="`${baseUrl}${img.imageUrl}`" alt="image">
@@ -53,7 +63,8 @@ export default {
     return {
       isLogin: false,
       images: [],
-      baseUrl: ''
+      baseUrl: '',
+      notice: null
     }
   },
   methods: {
@@ -66,6 +77,11 @@ export default {
         this.baseUrl = axios.defaults.baseURL
       })
     },
+    getNotice () {
+      clientService.getNoticeList().then(res => {
+        this.notice = res[0]
+      })
+    },
     loginOut () {
       localStorage.removeItem('USER_TOKEN')
       this.$router.push('/login')
@@ -74,6 +90,7 @@ export default {
   created () {
     this.getLoginStatus()
     this.getIndexImgs()
+    this.getNotice()
   }
 }
 </script>
@@ -102,6 +119,31 @@ export default {
     border-bottom: 1px solid #ccc;
     font-size: 18px;
   }
+  .notice {
+    position: relative;
+    margin: .8rem 0;
+    padding: .5rem 1rem;
+    min-height: 20px;
+    background: #fff;
+    word-break:keep-all;
+    overflow: hidden;
+    white-space:nowrap;
+  }
+  .notice .notice-icon {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    background: #fff;
+    z-index: 100
+  }
+  .notice .notice-text {
+    position: absolute;
+    top: .5rem;
+    left: 2.8rem;
+    right: 1.5rem;
+    overflow: hidden;
+  }
   .product-list {
     padding: 1.8rem;
   }
@@ -112,7 +154,7 @@ export default {
   }
   .product-item img {
     width: 100%;
-    height: 15rem;
+    border: 1px solid #ccc;
   }
   .product-item p {
     margin: 0;
@@ -126,5 +168,25 @@ export default {
   }
   .dropdown-item {
     font-size: 16px;
+  }
+  .animation {
+    -webkit-animation: noticeAnimation 20s linear infinite;
+    animation: noticeAnimation 20s linear infinite;
+  }
+  @-webkit-keyframes noticeAnimation {
+    0% {
+      -webkit-transform: translate3d(0, 0, 0);
+    }
+    100% {
+      -webkit-transform: translate3d(-100%, 0, 0);
+    }
+  }
+  @keyframes noticeAnimation {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
   }
 </style>

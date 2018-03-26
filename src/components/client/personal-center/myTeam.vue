@@ -7,16 +7,36 @@
       <div class="master">
         <p>我的师傅：</p>
         <div class="list" v-if="inviter">
-          <strong>{{inviter.nickName}}</strong>
-          <span>{{inviter.mobile}}</span>
+          <p>
+            <strong>{{inviter.nickName}}</strong>
+            <span class="right">{{inviter.mobile}}</span>
+          </p>
+          <p>
+            <span>在养鸡: {{inviter.asset.inHennery}}</span>
+            <span class="right">在孵蛋: {{inviter.asset.hatchingEgg}}</span>
+          </p>
+          <p>
+            <span>商品鸡: {{inviter.asset.commodityChicken}}</span>
+            <span class="right">商品蛋: {{inviter.asset.commodityEgg}}</span>
+          </p>
         </div>
       </div>
 
       <div class="disciple">
         <p>我的徒弟：</p>
         <div class="list" v-for="invitee of invitees" :key="invitee.id">
-          <strong>{{invitee.nickName}}</strong>
-          <span>{{invitee.mobile}}</span>
+          <p>
+            <strong>{{invitee.nickName}}</strong>
+            <span class="right">{{invitee.mobile}}</span>
+          </p>
+          <p>
+            <span>在养鸡: {{invitee.asset.inHennery}}</span>
+            <span class="right">在孵蛋: {{invitee.asset.hatchingEgg}}</span>
+          </p>
+          <p>
+            <span>商品鸡: {{invitee.asset.commodityChicken}}</span>
+            <span class="right">商品蛋: {{invitee.asset.commodityEgg}}</span>
+          </p>
         </div>
       </div>
     </div>
@@ -36,6 +56,7 @@ export default {
     getTeacherAndPupil () {
       this.inviter = JSON.parse(this.$route.query.inviter)
       this.invitees = JSON.parse(this.$route.query.invitee)
+      console.log(this.inviter)
     }
   },
   mounted () {
@@ -56,13 +77,16 @@ export default {
     padding-bottom: .8rem;
     border-bottom: 1px solid #ccc;
   }
+  .team p:last-child {
+    border-bottom: 0;
+  }
   .team .list {
     margin-top: .8rem;
-    padding: 0 .6rem;
+    padding: .2rem .6rem;
     border: 1px solid #ccc;
     background: #fff;
   }
-  .team .list span {
+  .team .list span.right {
     float: right;
   }
   .team .disciple {
