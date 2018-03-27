@@ -12,8 +12,8 @@
         <div class="wallet-btn-item" @click.stop="toTatgetRouter('/topUp')">充值</div>
         <div class="wallet-btn-item" @click.stop="toTatgetRouter('/withDraw')">提现</div>
         <div class="wallet-btn-item" @click.stop="toTatgetRouter('/transfer-account')">转账</div>
-        <div class="wallet-btn-item" @click.stop="toTatgetRouter('/bill')">账单</div>
         <div class="wallet-btn-item" @click="transformBalance()">银票转余额</div>
+        <div class="wallet-btn-item" @click.stop="toTatgetRouter('/bill')">账单</div>
       </div>
     </div>
 
@@ -122,5 +122,8 @@ export default {
   }
   .wallet-btn-item:nth-child(even) {
     margin-right: 0;
+  }
+  .wallet-btn-item:last-child{
+    width: 100%
   }
 </style>

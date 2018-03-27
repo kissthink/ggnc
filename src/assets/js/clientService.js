@@ -141,6 +141,13 @@ function feedAllHennery () {
   })
 }
 
+// 使用急救包
+function aidkitHennery (henneryId) {
+  return axiosService.get(apiUrl.aidkitHennery, henneryId).then(res => {
+    return res
+  })
+}
+
 // 获取粮仓信息
 function getUserGranary () {
   return axiosService.getAll(apiUrl.userGranary).then(res => {
@@ -313,5 +320,6 @@ export default {
   confirmWithdraw,
   getWithdrawCode,
   uploadCredential,
-  saveCredential
+  saveCredential,
+  aidkitHennery
 }

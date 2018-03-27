@@ -7,16 +7,16 @@
     <div class="foot-nav">
       <ul class="foot-nav-bar">
         <li class="foot-nav-item">
-          <router-link to="/home">首页</router-link>
-        </li>
-        <li class="foot-nav-item">
-          <router-link to="/my/order">订单</router-link>
+         <router-link to="/home">首页</router-link>
         </li>
         <li class="foot-nav-item">
           <router-link to="/my/farm">农场</router-link>
         </li>
         <li class="foot-nav-item">
           <router-link to="/my/market">市场</router-link>
+        </li>
+        <li class="foot-nav-item">
+          <router-link to="/my/order">订单</router-link>
         </li>
         <li class="foot-nav-item">
           <router-link to="/my/information">我的</router-link>

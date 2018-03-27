@@ -8,11 +8,6 @@
       <div class="amount-item">
         <client-amount-select v-on:selectAmount="selectTopUpAmount($event)"></client-amount-select>
       </div>
-
-      <p>请选择支付方式:</p>
-      <div class="amount-item">
-        <pay-method-select v-on:selectPayMethod="selectPayType($event)"></pay-method-select>
-      </div>
       <button class="btn btn-info btn-lg btn-block" @click="confirmAmount()">下一步</button>
     </div>
 
@@ -29,20 +24,15 @@
 </template>
 
 <script>
-import PayMethodSelect from '../../../shared/PayMethodSelect'
 import clientService from '@/assets/js/clientService'
 import util from '@/assets/js/util'
 export default {
   name: 'TopUp',
-  components: {
-    'payMethodSelect': PayMethodSelect
-  },
   data () {
     return {
       topUpObj: {
         amount: '',
-        payPassword: '',
-        type: ''
+        payPassword: ''
       },
       isTopUp: false
     }
@@ -50,9 +40,6 @@ export default {
   methods: {
     selectTopUpAmount (amount) {
       this.topUpObj.amount = amount
-    },
-    selectPayType (type) {
-      this.topUpObj.type = type
     },
     confirmAmount () {
       this.$refs.password.show()

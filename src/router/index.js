@@ -62,7 +62,7 @@ let router = new Router({
   routes: [
     { path: '/', redirect: '/home' },
     { path: '/login', name: 'Login', component: Login },
-    { path: '/admin-login', name: 'AdminLogin', component: AdminLogin },
+    { path: '/yhrtdgrtkuhhgjhgjfgfjgjgjmhhgkjfgujfutj', name: 'AdminLogin', component: AdminLogin },
     // client
     { path: '/home', name: 'Home', component: Home, meta: { requiresAuth: false } },
     { path: '/my',
@@ -132,7 +132,7 @@ router.beforeEach((to, from, next) => {
   if (!tokenService.isOverdue()) {
     if (to.path === '/login') {
       next({path: '/my'})
-    } else if (to.path === '/admin-login') {
+    } else if (to.path === '/yhrtdgrtkuhhgjhgjfgfjgjgjmhhgkjfgujfutj') {
       next({path: '/admin'})
     } else {
       next()
@@ -140,7 +140,7 @@ router.beforeEach((to, from, next) => {
   } else {
     if (to.path === '/login') {
       next()
-    } else if (to.path === '/admin-login') {
+    } else if (to.path === '/yhrtdgrtkuhhgjhgjfgfjgjgjmhhgkjfgujfutj') {
       next()
     } else {
       if (!to.matched.some(record => record.meta.requiresAuth)) {

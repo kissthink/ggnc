@@ -38,6 +38,7 @@ export default {
   getWithdrawCode: 'app/user/withdrawCode', // 获取收款码
   uploadCredential: 'app/user/uploadCredential', // 上传付款凭证
   saveCredential: 'app/user/credential', // 提交凭证
+  aidkitHennery: 'app/hennery/aid', // 使用急救包
 
   adminLogin: 'login/api', // 后台登录
   userList: 'api/user/list', // 用户列表

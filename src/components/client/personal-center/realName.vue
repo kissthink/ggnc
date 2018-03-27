@@ -17,18 +17,10 @@
           <b-form-input id="idCard" size="lg" type="text" v-model="real.idCard"></b-form-input>
         </b-form-group>
 
-        <b-form-group id="region"
-                    label="地区："
-                    label-for="region">
-          <b-form-input id="region" size="lg" type="text" v-model="real.region"></b-form-input>
-        </b-form-group>
-
-        <b-form-group id="wechatWithdrawCode"
-                    label="微信收款码："
-                    label-for="wechatWithdrawCode">
-          <b-form-file v-model="selectWechatWithdrawCode" accept=".jpg, .png, .gif"
-                       placeholder="选择微信收款码"></b-form-file>
-          <small v-if="isShowWechatCodeMeg">微信付款码图片大小超出限制</small>
+        <b-form-group id="alipayAccount"
+                    label="支付宝账号 ："
+                    label-for="alipayAccount">
+          <b-form-input id="alipayAccount" size="lg" type="text" v-model="real.alipayAccount"  placeholder="用于提现"></b-form-input>
         </b-form-group>
 
         <b-form-group id="alipayWithdrawCode"
@@ -62,7 +54,7 @@ export default {
         userId: '',
         realName: '',
         idCard: '',
-        region: '',
+        alipayAccount: '',
         wechatWithdrawCode: null,
         alipayWithdrawCode: null
       },
@@ -75,13 +67,6 @@ export default {
     }
   },
   watch: {
-    selectWechatWithdrawCode () {
-      if (this.selectWechatWithdrawCode.size > 1024 * 1024) {
-        this.isShowWechatCodeMeg = true
-      } else {
-        this.isShowWechatCodeMeg = false
-      }
-    },
     selectAlipayWithdrawCode () {
       if (this.selectAlipayWithdrawCode.size > 1024 * 1024) {
         this.isShowAliPayCodeMeg = true
@@ -100,7 +85,8 @@ export default {
         this.$message({message: '请输入正确的身份证号', type: 'error'})
         return
       }
-      if (this.isShowWechatCodeMeg) {
+      if (this.real.alipayAccount === '') {
+        this.$message({message: '请输入支付宝账号', type: 'error'})
         return
       }
       if (this.isShowAliPayCodeMeg) {
@@ -110,22 +96,7 @@ export default {
     },
     startSaveRealName () {
       this.isSaving = true
-      this.uploadWechatWithdrawCode()
-    },
-    uploadWechatWithdrawCode () {
-      if (this.selectWechatWithdrawCode) {
-        clientService.uploadPic(this.selectWechatWithdrawCode).then(res => {
-          if (res.status > 200) {
-            this.$message({message: '微信收款码上传失败', type: 'error'})
-            this.isSaving = false
-          } else {
-            this.real.wechatWithdrawCode = res.data.filePath
-            this.uploadAlipayWithdrawCode()
-          }
-        })
-      } else {
-        this.uploadAlipayWithdrawCode()
-      }
+      this.uploadAlipayWithdrawCode()
     },
     uploadAlipayWithdrawCode () {
       if (this.selectAlipayWithdrawCode) {
@@ -143,10 +114,12 @@ export default {
       }
     },
     saveRealName () {
-      if (!(this.selectWechatWithdrawCode || this.selectAlipayWithdrawCode)) {
-        this.$message({message: '请至少上传一种收款码', type: 'error'})
+      if (!this.selectAlipayWithdrawCode) {
+        this.$message({message: '请上传一种收款码', type: 'error'})
+        this.isSaving = false
         return
       }
+      this.isSaving = true
       clientService.saveUserInfo(this.real).then(res => {
         this.isSaving = false
         if (res.status > 200) {
@@ -176,4 +149,5 @@ export default {
     padding: 56px 1.5rem 0;
     font-size: 14px;
   }
+
 </style>

@@ -36,7 +36,7 @@
         </b-form-group>
 
         <b-form-group id="payPassword1"
-                    label="会员交易密码："
+                    label="会员交易密码： (用于交易)"
                     label-for="payPassword1">
           <b-form-input id="payPassword1" size="lg"
                   type="password" placeholder="请输入交易密码"
