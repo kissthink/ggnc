@@ -304,9 +304,23 @@ function getMathWithdrawList (type) {
   })
 }
 
-// 匹配订单
-function matchOrder (matchObj) {
-  return axiosService.post(apiUrl.match, matchObj).then(res => {
+// 匹配提现订单
+function matchWithdrawOrder (matchObj) {
+  return axiosService.post(apiUrl.mathWithdraw, matchObj).then(res => {
+    return res
+  })
+}
+
+// 匹配充值订单
+function matchTopUpOrder (matchObj) {
+  return axiosService.post(apiUrl.mathTopUp, matchObj).then(res => {
+    return res
+  })
+}
+
+// 上传收款码
+function uploadWithdraw (matchObj) {
+  return axiosService.uploadPic(apiUrl.uploadWithdraw, matchObj).then(res => {
     return res
   })
 }
@@ -327,7 +341,7 @@ function getMatchedList () {
 
 // 完成充值
 function topUpPass (order) {
-  return axiosService.patch(apiUrl.topUpPass, order).then(res => {
+  return axiosService.patch(apiUrl.completeTopUp, order).then(res => {
     return res
   })
 }
@@ -349,6 +363,20 @@ function getAdminConfig () {
 // 修改后台系统配置
 function updateAdminConfig (config) {
   return axiosService.update(apiUrl.adminConfig, config).then(res => {
+    return res
+  })
+}
+
+// 修改支付宝账号
+function updateAlipayConfig (config) {
+  return axiosService.patch(apiUrl.alipayConfig, '', config).then(res => {
+    return res
+  })
+}
+
+// 完成提现
+function userconfirmWithdraw (data, param) {
+  return axiosService.patch(apiUrl.userConfirmWithdraw, data, param).then(res => {
     return res
   })
 }
@@ -397,11 +425,15 @@ export default {
   changeIndexImageDetail,
   getMathTopUpList,
   getMathWithdrawList,
-  matchOrder,
   adminMatch,
   getMatchedList,
   topUpPass,
   completeMatch,
   getAdminConfig,
-  updateAdminConfig
+  updateAdminConfig,
+  updateAlipayConfig,
+  matchTopUpOrder,
+  matchWithdrawOrder,
+  uploadWithdraw,
+  userconfirmWithdraw
 }

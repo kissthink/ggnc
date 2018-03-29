@@ -5,16 +5,13 @@
 
     <div class="withdraw-form">
       <div class="mt-4 mb-4">
-        <el-input placeholder="提现金额不能小于500" v-model="withdrawObj.amount">
+        <el-input placeholder="提现金额不能小于500" v-model="withdrawObj.amount"  aria-describedby="inputFormatterHelp">
           <template slot="prepend">提现金额</template>
         </el-input>
+        <span>提现手续费1%</span>
         <small v-if="isShowAmountMessage">请输入正确的金额</small>
       </div>
 
-      <p>请选择支付方式:</p>
-      <div class="amount-item">
-        <pay-method-select v-on:selectPayMethod="selectPayType($event)"></pay-method-select>
-      </div>
       <button class="btn btn-info btn-lg btn-block" @click="confirmAmount()">下一步</button>
     </div>
 
@@ -31,20 +28,15 @@
 </template>
 
 <script>
-import PayMethodSelect from '../../../shared/PayMethodSelect'
 import clientService from '@/assets/js/clientService'
 import util from '@/assets/js/util'
 export default {
   name: 'WithDraw',
-  components: {
-    'payMethodSelect': PayMethodSelect
-  },
   data () {
     return {
       withdrawObj: {
         amount: '',
-        payPassword: '',
-        type: ''
+        payPassword: ''
       },
       isShowAmountMessage: false,
       isWithdraw: false
@@ -109,5 +101,10 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  .withdraw span{
+    float: right;
+    color:red;
+    padding: 2% 0;
   }
 </style>

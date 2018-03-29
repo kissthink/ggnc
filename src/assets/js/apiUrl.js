@@ -81,9 +81,12 @@ export default {
   handleSaveInexImage: 'api/home', // 处理首页图片信息
   mathTopUp: 'api/match/topUp', // 获取充值列表
   mathWithdraw: 'api/match/withdraw', // 获取提现列表
+  uploadWithdraw: 'api/match/uploadWithdraw', // 上传收款码
   match: 'api/match', // 匹配订单
   adminMatch: 'api/match/admin', // 平台匹配
-  topUpPass: 'api/match/topUpPass', // 充值完成
   completeMatch: 'api/match/complete', // 完成订单
-  adminConfig: 'api/config' // 后台系统配置
+  adminConfig: 'api/config', // 后台系统配置
+  alipayConfig: 'api/config/alipay', // 修改支付宝账号
+  completeTopUp: 'api/match/confirmTopUp', // 完成充值
+  userConfirmWithdraw: 'api/match/confirmWithdraw' // 提现完成
 }

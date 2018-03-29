@@ -60,10 +60,30 @@ function transformBillStatus (value) {
       status = '已匹配'
       break
     case 2:
-      status = '成功'
+      status = '已付款'
       break
     case 3:
+      status = '成功'
+      break
+    case 4:
       status = '失败'
+      break
+  }
+  return status
+}
+
+// 转换提现状态
+function transformWithrawBillStatus (value) {
+  let status = ''
+  switch (value) {
+    case 0:
+      status = '待匹配'
+      break
+    case 1:
+      status = '待确认'
+      break
+    case 2:
+      status = '成功'
       break
   }
   return status
@@ -106,6 +126,7 @@ let transform = {
   'orderStatus': transformOrderStatus,
   'tansfromToTime': tansfromToTime,
   'transformBillStatus': transformBillStatus,
+  'transformWithrawBillStatus': transformWithrawBillStatus,
   'transformPayMethod': transformPayMethod,
   'transformMatchOrderType': transformMatchOrderType
 }

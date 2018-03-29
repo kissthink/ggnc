@@ -56,6 +56,10 @@
         </button>
         <button class="btn btn-block btn-default btn-lg" @click.prevent="cancelForm()">取消</button>
       </b-form>
+
+      <b-modal v-model="modalShow" ok-title="同意" centered cancel-title="不同意" @ok='agreeProtocol()' title='用户协议'>
+        <div v-html="bModal"></div>
+      </b-modal>
     </div>
   </div>
 </template>
@@ -63,6 +67,7 @@
 <script>
 import clientService from '@/assets/js/clientService'
 import util from '@/assets/js/util'
+import { userProtocol as text } from '@/assets/js/userProtocol'
 export default {
   name: 'NewMamber',
   data () {
@@ -76,7 +81,9 @@ export default {
         inviterId: ''
       },
       regPayPassword: '',
-      isSaving: false
+      bModal: text,
+      isSaving: false,
+      modalShow: false
     }
   },
   methods: {
@@ -104,6 +111,12 @@ export default {
         this.$message({message: '两次输入的密码不一致', type: 'error'})
         return
       }
+      this.modalShow = true
+    },
+    cancelForm () {
+      this.$router.push('/my/information')
+    },
+    agreeProtocol () {
       this.isSaving = true
       clientService.registerUser(this.newMamber).then(res => {
         this.isSaving = false
@@ -121,9 +134,6 @@ export default {
           this.$message({message: '注册用户失败', type: 'error'})
         }
       })
-    },
-    cancelForm () {
-      this.$router.push('/my/information')
     }
   },
   mounted () {

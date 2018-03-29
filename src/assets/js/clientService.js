@@ -239,6 +239,13 @@ function userTopUp (topUpObj) {
   })
 }
 
+// 确认用户充值
+function userTopUped (id) {
+  return axiosService.patch(apiUrl.userTopUp, id).then(res => {
+    return res
+  })
+}
+
 // 用户提现
 function userWithDraw (withDrawObj) {
   return axiosService.post(apiUrl.userWithDraw, withDrawObj).then(res => {
@@ -321,5 +328,6 @@ export default {
   getWithdrawCode,
   uploadCredential,
   saveCredential,
-  aidkitHennery
+  aidkitHennery,
+  userTopUped
 }

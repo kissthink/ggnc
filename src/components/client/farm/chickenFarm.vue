@@ -105,19 +105,18 @@ export default {
       })
     },
     feedHennery (hennery) {
-      if (hennery.illDays > 0) {
+      if (hennery.status === 2) {
         if (window.confirm(`是否使用急救包?`)) {
           clientService.aidkitHennery(hennery.id).then(res => {
             if (res.status === 200) {
               this.$message({message: '使用急救包成功', type: 'success'})
-              hennery.illDays = 0
+              this.getInHennery()
             } else {
               this.$message({message: res.message, type: 'error'})
             }
           })
         }
-      }
-      else if (window.confirm(`确定喂养这${hennery.total}只鸡？`)) {
+      } else if (window.confirm(`确定喂养这${hennery.total}只鸡？`)) {
         clientService.feedHennery(hennery.id).then(res => {
           if (res.status === 200) {
             this.$message({message: '喂养成功', type: 'success'})

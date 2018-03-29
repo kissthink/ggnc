@@ -48,7 +48,7 @@
                 <td>{{item.createTime | transformTime}}</td>
                 <td>{{item.amount}}</td>
                 <td>{{item.type | transformPayMethod}}</td>
-                <td>{{item.status | transformBillStatus}}</td>
+                <td>{{item.status | transformWithrawBillStatus}}</td>
               </tr>
             </tbody>
           </table>
@@ -56,15 +56,13 @@
       </el-tabs>
     </div>
 
-    <b-modal v-model="showTopUpConfrim" title="获取收款码" ok-title="上传付款凭证"
-             centered cancel-title="取消" @ok="uploadPayCode()">
-      <div class="code-img">
-        <button class="btn btn-primary" v-if="!showReceiptCode" @click="getCode()">获取收款码</button>
-        <img :src="receiptCode" v-if="showReceiptCode">
-        <p v-if="showReceiptCode">验证码：{{verificationCode}}</p>
-      </div>
+    <b-modal v-model="showTopUpConfrim" title="付款信息" ok-title="确认付款" v-if="topupMessageShow"
+             centered cancel-title="取消" @ok="uploadPayCode()" :hide-footer="!showConfirmTopUpButton">
+      <p><img :src="topupimgShow" width="100%"></p>
+      <p>支付宝账号：{{topupMessage.alipayAccount}}</p>
+      <p>验证码：{{topupMessage.captcha}}</p>
+      <small>请在付款备注中输入验证码</small>
     </b-modal>
-
     <b-modal ref="withdrawConfrim" title="确认收款" ok-title="确定"
              centered cancel-title="取消" @ok="saveWithdrawConfrim()">
       <label>
@@ -94,8 +92,16 @@ export default {
       verificationCode: '',
       topUpRecordId: '',
       showReceiptCode: false,
+      topupimgShow: false,
       showTopUpConfrim: false,
-      baseUrl: axios.defaults.baseURL.slice(0, -1)
+      baseUrl: axios.defaults.baseURL.slice(0, -1),
+      topupMessage: {
+        alipayAccount: '',
+        withdrawCodeUrl: '',
+        captcha: ''
+      },
+      topupMessageShow: true,
+      showConfirmTopUpButton: true
     }
   },
   methods: {
@@ -160,18 +166,33 @@ export default {
       this.withDrawRecordId = record.id
     },
     selectedTopUpRecord (record) {
-      if (record.status !== 1) {
+      if (record.status !== 1 && record.status !== 2) {
         this.$message('该单未匹配成功或已经完成')
         return
+      }
+      if (record.status === 2) {
+        this.showConfirmTopUpButton = false
       }
       this.topUpRecordId = record.id
       if (this.showReceiptCode) {
         this.showReceiptCode = false
       }
       this.showTopUpConfrim = true
+      this.topupMessage.alipayAccount = record.alipayAccount
+      this.topupMessage.withdrawCodeUrl = record.withdrawCodeUrl
+      this.topupMessage.captcha = record.captcha
+      this.topupimgShow = this.baseUrl + record.withdrawCodeUrl
     },
     uploadPayCode () {
-      this.$router.push({path: 'reg-receipt-code', query: { recordId: this.topUpRecordId }})
+      let data = {id: this.topUpRecordId + '/'}
+      clientService.userTopUped(data).then(res => {
+        if (res.status === 200) {
+          this.$message({message: '充值成功', type: 'success'})
+          this.getUserTopUpRecord()
+        } else {
+          this.$message({message: res.message, type: 'error'})
+        }
+      })
     },
     saveWithdrawConfrim () {
       if (this.withdrawConfrim === '') {

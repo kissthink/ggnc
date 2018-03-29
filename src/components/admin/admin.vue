@@ -81,7 +81,7 @@ export default {
     },
     loginOut () {
       localStorage.removeItem('USER_TOKEN')
-      this.$router.push('/admin-login')
+      this.$router.push('/yhrtdgrtkuhhgjhgjfgfjgjgjmhhgkjfgujfutj')
     }
   },
   created () {

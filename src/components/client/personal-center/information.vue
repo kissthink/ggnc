@@ -60,7 +60,7 @@
       <div class="icon">
         <i class="fas fa-lock"></i>
       </div>
-      <span>修改密码</span>
+      <span>修改登陆密码</span>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div class="edit-pw">
-    <h4 class="h4-title">修改密码</h4>
+    <h4 class="h4-title">修改登录密码</h4>
     <back-history></back-history>
 
     <div class="form-wrap mt-2">
