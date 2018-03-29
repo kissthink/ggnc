@@ -9,6 +9,7 @@
         <th>手机号码</th>
         <th>账户余额</th>
         <th>是否实名</th>
+        <td>身份证号码</td>
         <th>操作</th>
       </thead>
       <tbody>
@@ -18,6 +19,10 @@
           <td>{{user.mobile}}</td>
           <td>{{user.asset.balance}} {{isBlocked(user)}}</td>
           <td>{{isRealName(user)}}</td>
+          <td>
+            <span v-if="user.userInfo">{{user.userInfo.idCard}}</span>
+            <span v-if="!user.userInfo"></span>
+          </td>
           <td>
             <button class="btn btn-info btn-sm" @click="switchEnable(user)">{{isEnable(user)}}</button>
             <button class="btn btn-danger btn-sm" @click="switchAsset(user)">冻结/解冻余额</button>
