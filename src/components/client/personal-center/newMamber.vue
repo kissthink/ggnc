@@ -57,7 +57,8 @@
         <button class="btn btn-block btn-default btn-lg" @click.prevent="cancelForm()">取消</button>
       </b-form>
 
-      <b-modal v-model="modalShow" ok-title="同意" centered cancel-title="不同意" @ok='agreeProtocol()' title='用户协议'>
+      <p class="newUser">注册代表你同意<a @click='modalShow = true' href="javascript:void(0)">本网站注册用户协议</a></p>
+      <b-modal v-model="modalShow" ok-title="确定" centered ok-only title='用户协议'>
         <div v-html="bModal"></div>
       </b-modal>
     </div>
@@ -111,12 +112,6 @@ export default {
         this.$message({message: '两次输入的密码不一致', type: 'error'})
         return
       }
-      this.modalShow = true
-    },
-    cancelForm () {
-      this.$router.push('/my/information')
-    },
-    agreeProtocol () {
       this.isSaving = true
       clientService.registerUser(this.newMamber).then(res => {
         this.isSaving = false
@@ -134,6 +129,9 @@ export default {
           this.$message({message: '注册用户失败', type: 'error'})
         }
       })
+    },
+    cancelForm () {
+      this.$router.push('/my/information')
     }
   },
   mounted () {
@@ -152,5 +150,14 @@ export default {
   }
   .form-wrap button {
     font-size: 14px;
+  }
+  .newUser {
+    font-size: 16px;
+    text-align: center;
+    padding: 2% 0;
+
+  }
+  .newUser a:hover{
+    text-decoration: none
   }
 </style>

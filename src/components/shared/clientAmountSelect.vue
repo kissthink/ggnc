@@ -20,7 +20,8 @@ export default {
         {id: 2, amount: 600, isSelected: false},
         {id: 3, amount: 700, isSelected: false},
         {id: 4, amount: 800, isSelected: false},
-        {id: 5, amount: 1000, isSelected: false}
+        {id: 5, amount: 900, isSelected: false},
+        {id: 6, amount: 1000, isSelected: false}
       ]
     }
   },
