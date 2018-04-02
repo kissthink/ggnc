@@ -68,14 +68,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .add {
     margin: 0 0 20px;
   }
   .notice-content {
     display: inline-block;
     max-width: 300px;
-    max-height: 15px;
+    max-height: 20px;
     overflow: hidden;
     white-space: normal;
     text-overflow: ellipsis;

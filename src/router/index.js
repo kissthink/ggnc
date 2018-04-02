@@ -88,7 +88,7 @@ let router = new Router({
     { path: '/real-name', name: 'RealName', component: RealName, meta: { requiresAuth: true } },
     { path: '/mt-team', name: 'MyTeam', component: MyTeam, meta: { requiresAuth: true } }, // 团队
     { path: '/chicken-detail', name: 'ChickenDetail', component: ChickenDetail, meta: { requiresAuth: true } }, // 养鸡明细
-    { path: '/notice', name: 'Notice', component: Notice, meta: { requiresAuth: true } }, // 公告
+    { path: '/notice', name: 'Notice', component: Notice, meta: { requiresAuth: false } }, // 公告
     { path: '/edit-password', name: 'EditPassword', component: EditPassword, meta: { requiresAuth: true } }, // 修改密码
     { path: '/hatch-room', name: 'HatchRoom', component: HatchRoom }, // 孵化房
     { path: '/inviter-hatch-room', name: 'InviterHatchRoom', component: InviterHatchRoom }, // 师傅孵化房

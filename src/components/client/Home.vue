@@ -34,7 +34,7 @@
 
     <p class="home-title">首页</p>
 
-    <div class="notice" v-if="notice">
+    <div class="notice" v-if="notice" @click="toNoticeList()">
       <div class="notice-icon">
         <i class="fas fa-bullhorn"></i>
       </div>
@@ -85,6 +85,9 @@ export default {
     loginOut () {
       localStorage.removeItem('USER_TOKEN')
       this.$router.push('/login')
+    },
+    toNoticeList () {
+      this.$router.push('/notice')
     }
   },
   created () {
@@ -141,7 +144,7 @@ export default {
     position: absolute;
     top: .5rem;
     left: 2.8rem;
-    right: 1.5rem;
+    /*right: 1.5rem;*/
     overflow: hidden;
   }
   .product-list {
@@ -170,8 +173,9 @@ export default {
     font-size: 16px;
   }
   .animation {
-    -webkit-animation: noticeAnimation 20s linear infinite;
-    animation: noticeAnimation 20s linear infinite;
+    width: auto;
+    -webkit-animation: noticeAnimation 60s linear infinite;
+    animation: noticeAnimation 60s linear infinite;
   }
   @-webkit-keyframes noticeAnimation {
     0% {
