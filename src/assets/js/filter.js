@@ -35,7 +35,7 @@ function transformBusinessType (value) {
 // 转换订单交易状态
 function transformOrderStatus (value) {
   let status = ''
-  switch (value) {
+  switch (+value) {
     case 0:
       status = '交易中'
       break

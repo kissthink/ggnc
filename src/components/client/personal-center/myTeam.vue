@@ -56,7 +56,6 @@ export default {
     getTeacherAndPupil () {
       this.inviter = JSON.parse(this.$route.query.inviter)
       this.invitees = JSON.parse(this.$route.query.invitee)
-      console.log(this.inviter)
     }
   },
   mounted () {

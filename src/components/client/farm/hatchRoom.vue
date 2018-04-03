@@ -57,7 +57,7 @@ export default {
         clientService.signInForSelf(user).then(res => {
           if (res.status === 200) {
             this.$message({message: '签到加温成功', type: 'success'})
-            this.getHatchList()
+            this.temperature++
           } else {
             this.$message({message: res.message, type: 'error'})
           }

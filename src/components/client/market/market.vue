@@ -16,7 +16,7 @@
             <tbody v-if="supply.length > 0">
               <tr v-for="order of supply" :key="order.id">
                 <td>{{order.createTime | transformTime}}</td>
-                <td>{{order.user.nickName}}</td>
+                <td class="nick-name">{{order.user.nickName}}</td>
                 <td>{{order.commodity.name}}</td>
                 <td>{{order.traded}}/{{order.total}}</td>
                 <td>{{order.status | orderStatus}}</td>
@@ -36,13 +36,26 @@
             <tbody v-if="demand.length > 0">
               <tr v-for="order of demand" :key="order.id">
                 <td>{{order.createTime | transformTime}}</td>
-                <td>{{order.user.nickName}}</td>
+                <td class="nick-name">{{order.user.nickName}}</td>
                 <td>{{order.commodity.name}}</td>
                 <td>{{order.traded}}/{{order.total}}</td>
                 <td>{{order.status | orderStatus}}</td>
               </tr>
             </tbody>
+            <tbody v-if="isActive">
+              <tr v-for="order of mockDemand" :key="order.id">
+                <td>{{order.createTime | transformTime}}</td>
+                <td class="nick-name">{{order.nickName}}</td>
+                <td>{{order.commodityName}}</td>
+                <td>{{order.traded}}/{{order.total}}</td>
+                <td>{{order.status | orderStatus}}</td>
+              </tr>
+            </tbody>
           </table>
+
+          <b-pagination v-if="isActive && demand.length === 0" size="lg"
+                        align="center" :total-rows="20"
+                        v-model="currentPage" :per-page="20"></b-pagination>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -51,18 +64,23 @@
 
 <script>
 import clientService from '@/assets/js/clientService'
+import { list as orderList } from '@/assets/js/mockDemandOrder'
 export default {
   name: 'Market',
   data () {
     return {
       supply: [],
-      demand: []
+      demand: [],
+      mockDemand: orderList,
+      isActive: false,
+      currentPage: 1
     }
   },
   methods: {
     getOrderDemand () {
       clientService.orderDemand().then(res => {
-        this.demand = res
+        this.demand = res.demand
+        this.isActive = res.active
       })
     },
     getOrderSupply () {
@@ -84,8 +102,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  td {
+    width: auto;
+  }
   .tab-wrap {
     padding: 1rem;
+    font-size: 12px;
+  }
+  .nick-name {
+    font-size: 12px;
   }
 </style>

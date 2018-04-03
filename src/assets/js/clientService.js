@@ -88,7 +88,7 @@ function getHatched (userId) {
 // 市场需求
 function orderDemand () {
   return axiosService.getAll(apiUrl.orderDemand).then(res => {
-    return res.data.demand
+    return res.data
   })
 }
 
