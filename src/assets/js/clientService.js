@@ -240,8 +240,8 @@ function userTopUp (topUpObj) {
 }
 
 // 确认用户充值
-function userTopUped (id) {
-  return axiosService.patch(apiUrl.userTopUp, id).then(res => {
+function userTopUped (id, url) {
+  return axiosService.patch(apiUrl.userTopUp, id, url).then(res => {
     return res
   })
 }

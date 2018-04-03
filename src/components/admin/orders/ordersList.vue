@@ -77,6 +77,7 @@
                 <th>用户</th>
                 <th>金额</th>
                 <th>状态</th>
+                <th>验证</th>
                 <th>操作</th>
               </thead>
               <tbody v-if="alreadyPaidTopUpList.length > 0">
@@ -89,6 +90,13 @@
                   </td>
                   <td>{{item.amount}}</td>
                   <td>{{item.status | transformBillStatus}}</td>
+                  <td>
+                    <button class="btn btn-info btn-sm"
+                            v-if="item.status === 2"
+                            @click="checkedTopup(item)">
+                            查看凭据
+                    </button>
+                  </td>
                   <td>
                     <button class="btn btn-info btn-sm"
                             v-if="item.status === 2"
@@ -335,6 +343,10 @@
        <img :src="userconfirmWithdrawUrl" width="100%">
        <p>支付宝: {{alipayObj.alipayAccount}}</p>
     </b-modal>
+
+    <b-modal v-model="showCheckMessage" ok-title="确认" centered title='查看凭证' ok-only>
+        <img :src="checkedTopupImg" width="100%">
+    </b-modal>
   </div>
 </template>
 
@@ -346,6 +358,7 @@ export default {
   name: 'OrdersList',
   data () {
     return {
+      showCheckMessage: false,
       userconfirmWithdrawUrl: '',
       baseUrl: axios.defaults.baseURL.slice(0, -1),
       checkCaptcha: '',
@@ -376,6 +389,7 @@ export default {
         withdrawCode: '',
         captcha: ''
       },
+      checkedTopupImg: '',
       adminMatching: {
         type: '',
         captcha: '',
@@ -618,6 +632,10 @@ export default {
           this.$message({message: res.message, type: 'error'})
         }
       })
+    },
+    checkedTopup (order) {
+      this.showCheckMessage = true
+      this.checkedTopupImg = this.baseUrl + order.credential
     }
   },
   created () {
