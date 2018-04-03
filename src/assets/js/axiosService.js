@@ -5,7 +5,8 @@ let USER_TOKEN = localStorage.getItem('USER_TOKEN')
 // axios defaults config
 // axios.defaults.baseURL = 'http://172.168.1.2:80/'
 // axios.defaults.baseURL = 'http://192.168.99.100:8080/'
-axios.defaults.baseURL = 'http://api.test.ggnc2018.com:8080/'
+// axios.defaults.baseURL = 'http://api.test.ggnc2018.com:8080/'
+axios.defaults.baseURL = 'http://www.ggnc2018.com:8080/'
 axios.defaults.headers.common['Authorization'] = USER_TOKEN
 
 // methods
