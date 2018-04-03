@@ -56,7 +56,7 @@
       </el-tabs>
     </div>
 
-    <b-modal v-model="showTopUpConfrim" title="付款信息" ok-title="确认付款" v-if="topupMessageShow"
+    <b-modal v-model="showTopUpConfrim" title="付款信息" ok-title="上传付款凭据" v-if="topupMessageShow"
              centered cancel-title="取消" @ok="uploadPayCode()" :hide-footer="!showConfirmTopUpButton">
       <p><img :src="topupimgShow" width="100%"></p>
       <p>支付宝账号：{{topupMessage.alipayAccount}}</p>
@@ -82,6 +82,7 @@ export default {
   data () {
     return {
       defaultTab: 'transfer',
+      topUpFlag: true,
       transferRecord: [],
       topUpRecord: [],
       withDrawRecord: [],
@@ -184,15 +185,7 @@ export default {
       this.topupimgShow = this.baseUrl + record.withdrawCodeUrl
     },
     uploadPayCode () {
-      let data = {id: this.topUpRecordId + '/'}
-      clientService.userTopUped(data).then(res => {
-        if (res.status === 200) {
-          this.$message({message: '充值成功', type: 'success'})
-          this.getUserTopUpRecord()
-        } else {
-          this.$message({message: res.message, type: 'error'})
-        }
-      })
+      this.$router.push({path: 'reg-receipt-code', query: { recordId: this.topUpRecordId }})
     },
     saveWithdrawConfrim () {
       if (this.withdrawConfrim === '') {

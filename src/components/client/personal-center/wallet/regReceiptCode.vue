@@ -51,7 +51,9 @@ export default {
       }
     },
     uploadImg () {
-      this.isUploading = true
+      if (!this.selectFile[0]) {
+        this.$message({message: '凭证不能为空', type: 'error'})
+      }
       clientService.uploadCredential(this.selectFile[0]).then(res => {
         if (res.status === 200) {
           this.saveCredential(res.data.filePath)
@@ -62,7 +64,7 @@ export default {
       })
     },
     saveCredential (url) {
-      clientService.saveCredential({id: this.topUpId}, {credential: url}).then(res => {
+      clientService.userTopUped({id: this.topUpId}, {credential: url}).then(res => {
         this.isUploading = false
         if (res.status === 200) {
           this.$message({message: '上传成功', type: 'success'})
