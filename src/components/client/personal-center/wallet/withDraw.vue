@@ -5,7 +5,7 @@
 
     <div class="withdraw-form">
       <div class="mt-4 mb-4">
-        <el-input placeholder="提现金额不能小于500" v-model="withdrawObj.amount"  aria-describedby="inputFormatterHelp">
+        <el-input placeholder="提现金额不能小于2000" v-model="withdrawObj.amount"  aria-describedby="inputFormatterHelp">
           <template slot="prepend">提现金额</template>
         </el-input>
         <span>提现手续费1%</span>

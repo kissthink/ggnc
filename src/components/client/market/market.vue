@@ -53,8 +53,8 @@
             </tbody>
           </table>
 
-          <b-pagination v-if="isActive && demand.length === 0" size="lg"
-                        align="center" :total-rows="20"
+          <b-pagination v-if="isActive" size="lg"
+                        align="center" :total-rows="100"
                         v-model="currentPage" :per-page="20"></b-pagination>
         </el-tab-pane>
       </el-tabs>
@@ -71,7 +71,7 @@ export default {
     return {
       supply: [],
       demand: [],
-      mockDemand: orderList,
+      mockDemand: [],
       isActive: false,
       currentPage: 1
     }
@@ -81,6 +81,12 @@ export default {
       clientService.orderDemand().then(res => {
         this.demand = res.demand
         this.isActive = res.active
+        if (res.demand.length < 20) {
+          orderList.length = 20 - res.demand.length
+          this.mockDemand = orderList
+        } else {
+          this.demand.length = 20
+        }
       })
     },
     getOrderSupply () {
